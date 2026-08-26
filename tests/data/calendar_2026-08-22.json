@@ -1,0 +1,1226 @@
+{
+ "date": "2026-08-22",
+ "tracks": [
+  {
+   "id": 23,
+   "name": "Romme",
+   "startTime": "2026-08-22T14:20:00",
+   "races": [
+    {
+     "id": "2026-08-22_23_1",
+     "number": 1,
+     "status": "results",
+     "startTime": "2026-08-22T14:20:51",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T14:43:29",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T15:09:42",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_4",
+     "number": 4,
+     "status": "results",
+     "startTime": "2026-08-22T15:30:57",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_5",
+     "number": 5,
+     "status": "results",
+     "startTime": "2026-08-22T16:10:43",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_6",
+     "number": 6,
+     "status": "results",
+     "startTime": "2026-08-22T16:32:24",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_7",
+     "number": 7,
+     "status": "results",
+     "startTime": "2026-08-22T16:54:56",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_8",
+     "number": 8,
+     "status": "results",
+     "startTime": "2026-08-22T17:17:36",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_9",
+     "number": 9,
+     "status": "results",
+     "startTime": "2026-08-22T17:38:16",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_10",
+     "number": 10,
+     "status": "results",
+     "startTime": "2026-08-22T18:05:49",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_11",
+     "number": 11,
+     "status": "results",
+     "startTime": "2026-08-22T18:26:09",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_12",
+     "number": 12,
+     "status": "results",
+     "startTime": "2026-08-22T18:46:40",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    }
+   ],
+   "biggestGameType": "V85",
+   "sport": "trot",
+   "countryCode": "SE",
+   "trackChanged": false
+  },
+  {
+   "id": 82,
+   "name": "Jarlsberg",
+   "startTime": "2026-08-22T19:32:00",
+   "races": [
+    {
+     "id": "2026-08-22_82_1",
+     "number": 1,
+     "status": "results",
+     "startTime": "2026-08-22T19:32:49"
+    },
+    {
+     "id": "2026-08-22_82_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T20:01:07"
+    },
+    {
+     "id": "2026-08-22_82_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T20:26:28"
+    },
+    {
+     "id": "2026-08-22_82_4",
+     "number": 4,
+     "status": "results",
+     "startTime": "2026-08-22T20:47:31"
+    },
+    {
+     "id": "2026-08-22_82_5",
+     "number": 5,
+     "status": "results",
+     "startTime": "2026-08-22T21:07:56"
+    },
+    {
+     "id": "2026-08-22_82_6",
+     "number": 6,
+     "status": "results",
+     "startTime": "2026-08-22T21:29:39"
+    },
+    {
+     "id": "2026-08-22_82_7",
+     "number": 7,
+     "status": "results",
+     "startTime": "2026-08-22T21:49:27"
+    },
+    {
+     "id": "2026-08-22_82_8",
+     "number": 8,
+     "status": "results",
+     "startTime": "2026-08-22T22:08:56"
+    }
+   ],
+   "biggestGameType": "V65",
+   "sport": "trot",
+   "countryCode": "NO",
+   "trackChanged": false
+  },
+  {
+   "id": 43,
+   "name": "Vaggeryd",
+   "startTime": "2026-08-22T11:10:00",
+   "races": [
+    {
+     "id": "2026-08-22_43_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T11:32:14",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_43_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T11:54:09",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_43_4",
+     "number": 4,
+     "status": "results",
+     "startTime": "2026-08-22T12:16:11",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_43_5",
+     "number": 5,
+     "status": "results",
+     "startTime": "2026-08-22T12:40:09",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_43_6",
+     "number": 6,
+     "status": "results",
+     "startTime": "2026-08-22T13:03:00",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_43_7",
+     "number": 7,
+     "status": "results",
+     "startTime": "2026-08-22T13:25:23",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_43_8",
+     "number": 8,
+     "status": "results",
+     "startTime": "2026-08-22T13:53:17",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    }
+   ],
+   "biggestGameType": "V5",
+   "sport": "trot",
+   "countryCode": "SE",
+   "trackChanged": false
+  },
+  {
+   "id": 66,
+   "name": "Bornholm",
+   "startTime": "2026-08-22T12:00:00",
+   "races": [
+    {
+     "id": "2026-08-22_66_1",
+     "number": 1,
+     "status": "results",
+     "startTime": "2026-08-22T12:00:57",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T12:22:35",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T12:44:34",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_4",
+     "number": 4,
+     "status": "results",
+     "startTime": "2026-08-22T13:16:23",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_5",
+     "number": 5,
+     "status": "results",
+     "startTime": "2026-08-22T13:37:34",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_6",
+     "number": 6,
+     "status": "results",
+     "startTime": "2026-08-22T13:57:33",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_7",
+     "number": 7,
+     "status": "results",
+     "startTime": "2026-08-22T14:20:41",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_8",
+     "number": 8,
+     "status": "results",
+     "startTime": "2026-08-22T14:44:38",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_9",
+     "number": 9,
+     "status": "results",
+     "startTime": "2026-08-22T15:05:55",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_10",
+     "number": 10,
+     "status": "results",
+     "startTime": "2026-08-22T15:45:37",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_66_11",
+     "number": 11,
+     "status": "results",
+     "startTime": "2026-08-22T16:11:31",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    }
+   ],
+   "biggestGameType": "V5",
+   "sport": "trot",
+   "countryCode": "DK",
+   "trackChanged": false
+  },
+  {
+   "id": 93,
+   "name": "Pocono Downs",
+   "startTime": "2026-08-22T20:30:00",
+   "races": [
+    {
+     "id": "2026-08-22_93_1",
+     "number": 1,
+     "status": "results",
+     "startTime": "2026-08-22T20:35:52"
+    },
+    {
+     "id": "2026-08-22_93_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T20:55:06"
+    },
+    {
+     "id": "2026-08-22_93_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T21:18:02"
+    },
+    {
+     "id": "2026-08-22_93_4",
+     "number": 4,
+     "status": "results",
+     "startTime": "2026-08-22T21:42:23"
+    },
+    {
+     "id": "2026-08-22_93_5",
+     "number": 5,
+     "status": "results",
+     "startTime": "2026-08-22T22:06:43"
+    },
+    {
+     "id": "2026-08-22_93_6",
+     "number": 6,
+     "status": "results",
+     "startTime": "2026-08-22T22:27:01"
+    },
+    {
+     "id": "2026-08-22_93_7",
+     "number": 7,
+     "status": "results",
+     "startTime": "2026-08-22T22:52:43"
+    },
+    {
+     "id": "2026-08-22_93_8",
+     "number": 8,
+     "status": "results",
+     "startTime": "2026-08-22T23:13:31"
+    },
+    {
+     "id": "2026-08-22_93_9",
+     "number": 9,
+     "status": "results",
+     "startTime": "2026-08-22T23:37:16"
+    },
+    {
+     "id": "2026-08-22_93_10",
+     "number": 10,
+     "status": "results",
+     "startTime": "2026-08-22T23:59:42"
+    },
+    {
+     "id": "2026-08-22_93_11",
+     "number": 11,
+     "status": "results",
+     "startTime": "2026-08-23T00:20:52"
+    },
+    {
+     "id": "2026-08-22_93_12",
+     "number": 12,
+     "status": "results",
+     "startTime": "2026-08-23T00:44:29"
+    },
+    {
+     "id": "2026-08-22_93_13",
+     "number": 13,
+     "status": "results",
+     "startTime": "2026-08-23T01:08:03"
+    }
+   ],
+   "biggestGameType": "V5",
+   "sport": "trot",
+   "countryCode": "US",
+   "trackChanged": false
+  },
+  {
+   "id": 95,
+   "name": "Århus Galopp",
+   "startTime": "2026-08-22T18:12:00",
+   "races": [
+    {
+     "id": "2026-08-22_95_1",
+     "number": 1,
+     "status": "results",
+     "startTime": "2026-08-22T18:11:57",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_95_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T18:36:03",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_95_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T19:01:14",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_95_4",
+     "number": 4,
+     "status": "results",
+     "startTime": "2026-08-22T19:26:37",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_95_5",
+     "number": 5,
+     "status": "results",
+     "startTime": "2026-08-22T19:52:54",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_95_6",
+     "number": 6,
+     "status": "results",
+     "startTime": "2026-08-22T20:17:16",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    }
+   ],
+   "biggestGameType": "V5",
+   "sport": "gallop",
+   "countryCode": "DK",
+   "trackChanged": false
+  },
+  {
+   "id": 53,
+   "name": "Woodbine",
+   "startTime": "2026-08-22T19:00:00",
+   "races": [
+    {
+     "id": "2026-08-22_53_1",
+     "number": 1,
+     "status": "results",
+     "startTime": "2026-08-22T19:01:03"
+    },
+    {
+     "id": "2026-08-22_53_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T19:35:39"
+    },
+    {
+     "id": "2026-08-22_53_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T20:06:48"
+    },
+    {
+     "id": "2026-08-22_53_4",
+     "number": 4,
+     "status": "results",
+     "startTime": "2026-08-22T20:38:05"
+    },
+    {
+     "id": "2026-08-22_53_5",
+     "number": 5,
+     "status": "results",
+     "startTime": "2026-08-22T21:06:17"
+    },
+    {
+     "id": "2026-08-22_53_6",
+     "number": 6,
+     "status": "results",
+     "startTime": "2026-08-22T21:38:13"
+    },
+    {
+     "id": "2026-08-22_53_7",
+     "number": 7,
+     "status": "results",
+     "startTime": "2026-08-22T22:08:55"
+    },
+    {
+     "id": "2026-08-22_53_8",
+     "number": 8,
+     "status": "results",
+     "startTime": "2026-08-22T22:41:04"
+    },
+    {
+     "id": "2026-08-22_53_9",
+     "number": 9,
+     "status": "results",
+     "startTime": "2026-08-22T23:10:10"
+    }
+   ],
+   "biggestGameType": "V4",
+   "sport": "gallop",
+   "countryCode": "CA",
+   "trackChanged": false
+  },
+  {
+   "id": 59,
+   "name": "Kouvola",
+   "startTime": "2026-08-22T12:15:00",
+   "races": [
+    {
+     "id": "2026-08-22_59_1",
+     "number": 1,
+     "status": "results",
+     "startTime": "2026-08-22T12:15:09"
+    },
+    {
+     "id": "2026-08-22_59_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T12:40:32"
+    },
+    {
+     "id": "2026-08-22_59_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T13:05:12"
+    },
+    {
+     "id": "2026-08-22_59_4",
+     "number": 4,
+     "status": "results",
+     "startTime": "2026-08-22T13:46:15"
+    },
+    {
+     "id": "2026-08-22_59_5",
+     "number": 5,
+     "status": "results",
+     "startTime": "2026-08-22T14:07:33"
+    },
+    {
+     "id": "2026-08-22_59_6",
+     "number": 6,
+     "status": "results",
+     "startTime": "2026-08-22T14:28:59"
+    },
+    {
+     "id": "2026-08-22_59_7",
+     "number": 7,
+     "status": "results",
+     "startTime": "2026-08-22T14:51:27"
+    },
+    {
+     "id": "2026-08-22_59_8",
+     "number": 8,
+     "status": "results",
+     "startTime": "2026-08-22T15:13:33"
+    },
+    {
+     "id": "2026-08-22_59_9",
+     "number": 9,
+     "status": "results",
+     "startTime": "2026-08-22T15:41:06"
+    },
+    {
+     "id": "2026-08-22_59_10",
+     "number": 10,
+     "status": "results",
+     "startTime": "2026-08-22T16:08:12"
+    }
+   ],
+   "biggestGameType": "V4",
+   "sport": "trot",
+   "countryCode": "FI",
+   "trackChanged": false
+  },
+  {
+   "id": 63,
+   "name": "Vincennes",
+   "startTime": "2026-08-22T11:40:00",
+   "races": [
+    {
+     "id": "2026-08-22_63_1",
+     "number": 1,
+     "status": "results",
+     "startTime": "2026-08-22T11:41:21"
+    },
+    {
+     "id": "2026-08-22_63_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T12:20:34"
+    },
+    {
+     "id": "2026-08-22_63_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T12:57:08"
+    },
+    {
+     "id": "2026-08-22_63_4",
+     "number": 4,
+     "status": "results",
+     "startTime": "2026-08-22T13:34:23"
+    },
+    {
+     "id": "2026-08-22_63_5",
+     "number": 5,
+     "status": "results",
+     "startTime": "2026-08-22T14:13:14"
+    },
+    {
+     "id": "2026-08-22_63_6",
+     "number": 6,
+     "status": "results",
+     "startTime": "2026-08-22T14:50:20"
+    },
+    {
+     "id": "2026-08-22_63_7",
+     "number": 7,
+     "status": "results",
+     "startTime": "2026-08-22T15:34:30"
+    },
+    {
+     "id": "2026-08-22_63_8",
+     "number": 8,
+     "status": "results",
+     "startTime": "2026-08-22T16:12:20"
+    }
+   ],
+   "biggestGameType": "V4",
+   "sport": "trot",
+   "countryCode": "FR",
+   "trackChanged": false
+  },
+  {
+   "id": 54,
+   "name": "Århus",
+   "startTime": "2026-08-22T17:00:00",
+   "races": [
+    {
+     "id": "2026-08-22_54_1",
+     "number": 1,
+     "status": "results",
+     "startTime": "2026-08-22T17:03:46",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_54_2",
+     "number": 2,
+     "status": "results",
+     "startTime": "2026-08-22T17:21:31",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_54_3",
+     "number": 3,
+     "status": "results",
+     "startTime": "2026-08-22T17:52:15",
+     "mergedPools": [
+      {
+       "name": "A",
+       "betTypes": [
+        "vinnare",
+        "plats",
+        "komb",
+        "tvilling",
+        "trio"
+       ]
+      }
+     ]
+    }
+   ],
+   "biggestGameType": "trio",
+   "sport": "trot",
+   "countryCode": "DK",
+   "trackChanged": false
+  }
+ ],
+ "games": {
+  "V85": [
+   {
+    "id": "V85_2026-08-22_23_5",
+    "status": "results",
+    "startTime": "2026-08-22T16:10:43",
+    "scheduledStartTime": "2026-08-22T16:10:00",
+    "tracks": [
+     23
+    ],
+    "races": [
+     "2026-08-22_23_5",
+     "2026-08-22_23_6",
+     "2026-08-22_23_7",
+     "2026-08-22_23_8",
+     "2026-08-22_23_9",
+     "2026-08-22_23_10",
+     "2026-08-22_23_11",
+     "2026-08-22_23_12"
+    ],
+    "addOns": [
+     "boost"
+    ],
+    "returnToPlayer": 65,
+    "newBettingSystem": true
+   }
+  ],
+  "V5": [
+   {
+    "id": "V5_2026-08-22_23_8",
+    "status": "results",
+    "startTime": "2026-08-22T17:17:36",
+    "scheduledStartTime": "2026-08-22T17:16:00",
+    "tracks": [
+     23
+    ],
+    "races": [
+     "2026-08-22_23_8",
+     "2026-08-22_23_9",
+     "2026-08-22_23_10",
+     "2026-08-22_23_11",
+     "2026-08-22_23_12"
+    ],
+    "returnToPlayer": 65,
+    "newBettingSystem": true
+   },
+   {
+    "id": "V5_2026-08-22_43_3",
+    "status": "results",
+    "startTime": "2026-08-22T11:54:09",
+    "scheduledStartTime": "2026-08-22T11:54:00",
+    "tracks": [
+     43
+    ],
+    "races": [
+     "2026-08-22_43_3",
+     "2026-08-22_43_4",
+     "2026-08-22_43_5",
+     "2026-08-22_43_6",
+     "2026-08-22_43_7"
+    ],
+    "returnToPlayer": 65,
+    "newBettingSystem": true
+   },
+   {
+    "id": "V5_2026-08-22_66_3",
+    "status": "results",
+    "startTime": "2026-08-22T12:44:34",
+    "scheduledStartTime": "2026-08-22T12:44:00",
+    "tracks": [
+     66
+    ],
+    "races": [
+     "2026-08-22_66_3",
+     "2026-08-22_66_4",
+     "2026-08-22_66_5",
+     "2026-08-22_66_6",
+     "2026-08-22_66_7"
+    ],
+    "returnToPlayer": 65,
+    "newBettingSystem": true
+   },
+   {
+    "id": "V5_2026-08-22_93_5",
+    "status": "results",
+    "startTime": "2026-08-22T22:06:43",
+    "scheduledStartTime": "2026-08-22T21:54:00",
+    "tracks": [
+     93
+    ],
+    "races": [
+     "2026-08-22_93_5",
+     "2026-08-22_93_6",
+     "2026-08-22_93_7",
+     "2026-08-22_93_8",
+     "2026-08-22_93_9"
+    ],
+    "returnToPlayer": 65,
+    "newBettingSystem": true
+   },
+   {
+    "id": "V5_2026-08-22_95_2",
+    "status": "results",
+    "startTime": "2026-08-22T18:36:03",
+    "scheduledStartTime": "2026-08-22T18:30:00",
+    "tracks": [
+     95
+    ],
+    "races": [
+     "2026-08-22_95_2",
+     "2026-08-22_95_3",
+     "2026-08-22_95_4",
+     "2026-08-22_95_5",
+     "2026-08-22_95_6"
+    ],
+    "returnToPlayer": 65,
+    "newBettingSystem": true
+   }
+  ]
+ },
+ "currentVersion": 1787749850813
+}

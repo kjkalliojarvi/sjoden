@@ -1,0 +1,1671 @@
+{
+ "@type": ".Game",
+ "id": "V85_2026-08-22_23_5",
+ "status": "results",
+ "pools": {
+  "V85": {
+   "@type": ".MarkingBetPool",
+   "id": "V85_2026-08-22_23_5",
+   "status": "results",
+   "timestamp": "2026-08-22 19:09:00",
+   "turnover": 7948155300,
+   "addOns": [
+    "boost"
+   ],
+   "result": {
+    "@type": ".MarkingBetResult",
+    "payouts": {
+     "5": {
+      "systems": 4394356,
+      "movedDividend": true
+     },
+     "6": {
+      "systems": 774673,
+      "payout": 3300
+     },
+     "7": {
+      "systems": 73913,
+      "payout": 13900
+     },
+     "8": {
+      "systems": 2849,
+      "payout": 543900
+     }
+    },
+    "boostInfo": {
+     "boostCode": "571",
+     "boostPayouts": [
+      {
+       "correct": 8,
+       "amount": 5439000,
+       "multiplier": 10
+      },
+      {
+       "correct": 7,
+       "amount": 1390000,
+       "multiplier": 100
+      },
+      {
+       "correct": 6,
+       "amount": 330000,
+       "multiplier": 100
+      },
+      {
+       "correct": 5,
+       "amount": 0,
+       "multiplier": 100
+      }
+     ],
+     "resultComplete": true
+    }
+   },
+   "betType": "V85",
+   "harry": false,
+   "systemCount": 1223576,
+   "payouts": {
+    "5": 1808205300,
+    "6": 774945100,
+    "7": 1033260200,
+    "8": 1549890300
+   },
+   "potentialPayoutRaceId": "2026-08-22_23_12"
+  }
+ },
+ "races": [
+  {
+   "id": "2026-08-22_23_5",
+   "name": "Borlänge Kommun - STL Diamantstoet (Försök 4 i Meeting 6 - Final Solvalla 10/10)",
+   "date": "2026-08-22",
+   "number": 5,
+   "distance": 2140,
+   "startMethod": "volte",
+   "startTime": "2026-08-22T16:10:43",
+   "scheduledStartTime": "2026-08-22T16:10:00",
+   "prize": "Pris: 150.000-75.000-40.000-25.000-15.000-11.500-7.500-5.000 kr (8 prisplacerade). Lägst 2.500 kr till alla tävlande. Prispengar max total: 346.500 kr.",
+   "terms": [
+    "3-åriga och äldre ston 300.001 - 1.950.000 kr. Körsvenskrav kat. 1. Körsvenner födda 080822 eller tidigare.",
+    "Svenska Travligans hederspris till segrande hästs ägare och hästskötare.",
+    "2140 m. Tillägg 20 m vid vunna 780.001 kr"
+   ],
+   "sport": "trot",
+   "track": {
+    "id": 23,
+    "name": "Romme",
+    "condition": "light",
+    "countryCode": "SE",
+    "sportSystemCode": "RO"
+   },
+   "result": {
+    "victoryMargin": "1.5 längd",
+    "scratchings": [
+     2
+    ]
+   },
+   "status": "results",
+   "mediaId": "2663184453398",
+   "pools": {
+    "vinnare": {
+     "@type": ".VinnarePool",
+     "id": "vinnare_2026-08-22_23_5",
+     "status": "results",
+     "timestamp": "2026-08-22 16:30:30",
+     "turnover": 69028600,
+     "result": {
+      "@type": ".VinnarePoolRaceResult",
+      "winners": [
+       {
+        "number": 10,
+        "odds": 226
+       }
+      ]
+     },
+     "betType": "vinnare"
+    },
+    "plats": {
+     "@type": ".PlatsPool",
+     "id": "plats_2026-08-22_23_5",
+     "status": "results",
+     "timestamp": "2026-08-22 16:30:30",
+     "turnover": 69028600,
+     "result": {
+      "@type": ".PlatsPoolRaceResult",
+      "winners": {
+       "first": [
+        {
+         "number": 10,
+         "odds": 121
+        }
+       ],
+       "second": [
+        {
+         "number": 8,
+         "odds": 702
+        }
+       ],
+       "third": [
+        {
+         "number": 1,
+         "odds": 494
+        }
+       ]
+      }
+     },
+     "betType": "plats"
+    },
+    "tvilling": {
+     "@type": ".TvillingPool",
+     "id": "tvilling_2026-08-22_23_5",
+     "status": "results",
+     "timestamp": "2026-08-22 16:30:30",
+     "turnover": 69028600,
+     "result": {
+      "@type": ".TvillingPoolRaceResult",
+      "winners": [
+       {
+        "combination": [
+         8,
+         10
+        ],
+        "odds": 5666
+       }
+      ]
+     },
+     "betType": "tvilling"
+    },
+    "komb": {
+     "@type": ".KombPool",
+     "id": "komb_2026-08-22_23_5",
+     "status": "results",
+     "timestamp": "2026-08-22 16:30:30",
+     "turnover": 69028600,
+     "result": {
+      "@type": ".KombPoolRaceResult",
+      "winners": [
+       {
+        "combination": [
+         10,
+         8
+        ],
+        "odds": 7081
+       }
+      ]
+     },
+     "betType": "komb"
+    },
+    "trio": {
+     "@type": ".TrioPool",
+     "id": "trio_2026-08-22_23_5",
+     "status": "results",
+     "timestamp": "2026-08-22 16:30:30",
+     "turnover": 69028600,
+     "result": {
+      "@type": ".TrioPoolRaceResult",
+      "winners": [
+       {
+        "combination": [
+         10,
+         8,
+         1
+        ],
+        "odds": 77470
+       }
+      ]
+     },
+     "betType": "trio"
+    },
+    "V85": {
+     "@type": ".Pool",
+     "result": {
+      "@type": ".MarkingBetRacePoolResult",
+      "systems": "572172",
+      "value": {
+       "amount": 2700
+      },
+      "winners": [
+       10
+      ],
+      "reserveOrder": [
+       6,
+       10,
+       9,
+       3,
+       7,
+       1,
+       4,
+       5,
+       2,
+       8
+      ]
+     }
+    }
+   },
+   "starts": [
+    {
+     "id": "2026-08-22_23_5_1",
+     "number": 1,
+     "postPosition": 1,
+     "distance": 2140,
+     "horse": {
+      "id": 803618,
+      "name": "Noa Transs R.",
+      "nationality": "NL",
+      "age": 6,
+      "sex": "mare",
+      "record": {
+       "code": "M",
+       "startMethod": "volte",
+       "distance": "medium",
+       "time": {
+        "minutes": 1,
+        "seconds": 13,
+        "tenths": 4
+       }
+      },
+      "trainer": {
+       "id": 827728,
+       "firstName": "Marco",
+       "lastName": "Lammers",
+       "shortName": "Lam Ma",
+       "location": "Hamrångefjärden",
+       "birth": 1989,
+       "homeTrack": {
+        "id": 16,
+        "name": "Gävle"
+       },
+       "license": "B-tränare: träna, köra för bolag"
+      },
+      "shoes": {
+       "reported": true,
+       "front": {
+        "hasShoe": false,
+        "changed": true
+       },
+       "back": {
+        "hasShoe": false,
+        "changed": true
+       }
+      },
+      "sulky": {
+       "reported": true,
+       "type": {
+        "code": "VA",
+        "text": "Vanlig",
+        "engText": "Standard",
+        "changed": false
+       },
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 712893,
+      "color": "mörkbrun",
+      "homeTrack": {
+       "id": 16,
+       "name": "Gävle"
+      },
+      "owner": {
+       "id": 827730,
+       "name": "Stable Vitanova Breeding and Racing"
+      },
+      "breeder": {
+       "id": 646910,
+       "name": "Redder Klaas",
+       "location": "Nederländerna"
+      },
+      "pedigree": {
+       "father": {
+        "id": 736196,
+        "name": "Brillantissime",
+        "nationality": "FR"
+       },
+       "mother": {
+        "id": 803616,
+        "name": "Gabrielatranss R.",
+        "nationality": "NL"
+       },
+       "grandfather": {
+        "id": 594465,
+        "name": "Broadway Hall",
+        "nationality": "US"
+       }
+      }
+     },
+     "driver": {
+      "id": 665962,
+      "firstName": "Kevin",
+      "lastName": "Svedlund",
+      "shortName": "Sve Ke",
+      "location": "Hamrångefjärden",
+      "birth": 1993,
+      "homeTrack": {
+       "id": 16,
+       "name": "Gävle"
+      },
+      "license": "A-tränare: träna, köra",
+      "silks": "Svart, vitt bröstb och silv axelp; svart"
+     },
+     "result": {
+      "place": 3,
+      "finishOrder": 3,
+      "kmTime": {
+       "minutes": 1,
+       "seconds": 13,
+       "tenths": 6
+      },
+      "prizeMoney": 40000,
+      "finalOdds": 35.47,
+      "startNumber": 1
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 3547
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 494,
+       "maxOdds": 494,
+       "odds": 494
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 82
+      }
+     },
+     "videos": [
+      {
+       "mediaId": "2663166021390",
+       "timestamp": "2026-08-22T15:00:45"
+      },
+      {
+       "mediaId": "2663172165071",
+       "timestamp": "2026-08-22T15:13:41"
+      },
+      {
+       "mediaId": "2663176261101",
+       "timestamp": "2026-08-22T15:24:38"
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_5_2",
+     "number": 2,
+     "scratched": true,
+     "postPosition": 2,
+     "distance": 2140,
+     "horse": {
+      "id": 784545,
+      "name": "Ajlexes Gourmand",
+      "age": 5,
+      "sex": "mare",
+      "record": {
+       "code": "M",
+       "startMethod": "volte",
+       "distance": "medium",
+       "time": {
+        "minutes": 1,
+        "seconds": 13,
+        "tenths": 0
+       }
+      },
+      "trainer": {
+       "id": 110358,
+       "firstName": "Tomas",
+       "lastName": "Pettersson",
+       "shortName": "Pet To",
+       "location": "Alfta",
+       "birth": 1978,
+       "homeTrack": {
+        "id": 12,
+        "name": "Bollnäs"
+       },
+       "license": "A-tränare: träna, köra",
+       "silks": "Mörkblå, röd axelskärp och ärmbindel; mbl"
+      },
+      "shoes": {
+       "reported": false
+      },
+      "sulky": {
+       "reported": false,
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 678400,
+      "color": "brun",
+      "homeTrack": {
+       "id": 12,
+       "name": "Bollnäs"
+      },
+      "owner": {
+       "id": 218231,
+       "name": "Stall Stora Hälla"
+      },
+      "breeder": {
+       "id": 218231,
+       "name": "Jonsson Anders",
+       "location": "Falun"
+      },
+      "pedigree": {
+       "father": {
+        "id": 588796,
+        "name": "Maharajah"
+       },
+       "mother": {
+        "id": 686219,
+        "name": "Remains"
+       },
+       "grandfather": {
+        "id": 581297,
+        "name": "Chocolatier",
+        "nationality": "US"
+       }
+      }
+     },
+     "driver": {
+      "id": 110358,
+      "firstName": "Tomas",
+      "lastName": "Pettersson",
+      "shortName": "Pet To",
+      "location": "Alfta",
+      "birth": 1978,
+      "homeTrack": {
+       "id": 12,
+       "name": "Bollnäs"
+      },
+      "license": "A-tränare: träna, köra",
+      "silks": "Mörkblå, röd axelskärp och ärmbindel; mbl"
+     },
+     "result": {
+      "finishOrder": 52,
+      "finalOdds": 0.0,
+      "startNumber": 2
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 0
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 0,
+       "maxOdds": 0
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 39
+      }
+     }
+    },
+    {
+     "id": "2026-08-22_23_5_3",
+     "number": 3,
+     "postPosition": 3,
+     "distance": 2140,
+     "horse": {
+      "id": 788756,
+      "name": "Midas Mana",
+      "age": 6,
+      "sex": "mare",
+      "record": {
+       "code": "K",
+       "startMethod": "volte",
+       "distance": "short",
+       "time": {
+        "minutes": 1,
+        "seconds": 13,
+        "tenths": 4
+       }
+      },
+      "trainer": {
+       "id": 659906,
+       "firstName": "Nicolina",
+       "lastName": "Moxness",
+       "shortName": "Mox Ni",
+       "location": "Almunge",
+       "birth": 1964,
+       "homeTrack": {
+        "id": 5,
+        "name": "Solvalla"
+       },
+       "license": "B-tränare: träna, köra för bolag"
+      },
+      "shoes": {
+       "reported": true,
+       "front": {
+        "hasShoe": false,
+        "changed": false
+       },
+       "back": {
+        "hasShoe": true,
+        "changed": false
+       }
+      },
+      "sulky": {
+       "reported": true,
+       "type": {
+        "code": "VA",
+        "text": "Vanlig",
+        "engText": "Standard",
+        "changed": false
+       },
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 665965,
+      "color": "brun",
+      "homeTrack": {
+       "id": 5,
+       "name": "Solvalla"
+      },
+      "owner": {
+       "id": 834460,
+       "name": "Stall Midas AB, Almunge"
+      },
+      "breeder": {
+       "id": 817552,
+       "name": "Hemlin Nyström Matilda",
+       "location": "Kungsgården"
+      },
+      "pedigree": {
+       "father": {
+        "id": 720485,
+        "name": "Minnestads Dubai"
+       },
+       "mother": {
+        "id": 673536,
+        "name": "Purple Dream"
+       },
+       "grandfather": {
+        "id": 152365,
+        "name": "Smasher",
+        "nationality": "US"
+       }
+      }
+     },
+     "driver": {
+      "id": 177032,
+      "firstName": "Claes",
+      "lastName": "Sjöström",
+      "shortName": "Sjö Cl",
+      "location": "Rimbo",
+      "birth": 1976,
+      "homeTrack": {
+       "id": 5,
+       "name": "Solvalla"
+      },
+      "license": "A-tränare: träna, köra",
+      "silks": "Mörkblå, grå axelklaffar och ärmbindel; si"
+     },
+     "result": {
+      "finishOrder": 39,
+      "kmTime": {
+       "code": "9"
+      },
+      "galloped": true,
+      "disqualified": true,
+      "prizeMoney": 2500,
+      "finalOdds": 9.45,
+      "startNumber": 3
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 945
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 198,
+       "maxOdds": 198
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 407
+      }
+     },
+     "videos": [
+      {
+       "mediaId": "2663165509032",
+       "timestamp": "2026-08-22T14:37:52"
+      },
+      {
+       "mediaId": "2663166021429",
+       "timestamp": "2026-08-22T15:02:15"
+      },
+      {
+       "mediaId": "2663167045150",
+       "timestamp": "2026-08-22T14:50:17"
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_5_4",
+     "number": 4,
+     "postPosition": 4,
+     "distance": 2140,
+     "horse": {
+      "id": 771384,
+      "name": "Nunja",
+      "age": 7,
+      "sex": "mare",
+      "record": {
+       "code": "K",
+       "startMethod": "volte",
+       "distance": "short",
+       "time": {
+        "minutes": 1,
+        "seconds": 12,
+        "tenths": 3
+       }
+      },
+      "trainer": {
+       "id": 68083,
+       "firstName": "Lars",
+       "lastName": "Järpedal",
+       "shortName": "Jär La",
+       "location": "Vargön",
+       "birth": 1965,
+       "homeTrack": {
+        "id": 6,
+        "name": "Åby"
+       },
+       "license": "B-tränare: träna, köra för bolag"
+      },
+      "shoes": {
+       "reported": true,
+       "front": {
+        "hasShoe": false,
+        "changed": false
+       },
+       "back": {
+        "hasShoe": true,
+        "changed": false
+       }
+      },
+      "sulky": {
+       "reported": true,
+       "type": {
+        "code": "VA",
+        "text": "Vanlig",
+        "engText": "Standard",
+        "changed": false
+       },
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 774800,
+      "color": "svartbrun",
+      "homeTrack": {
+       "id": 6,
+       "name": "Åby"
+      },
+      "owner": {
+       "id": 678044,
+       "name": "Stall Duplex"
+      },
+      "breeder": {
+       "id": 160465,
+       "name": "Olofsson Ronny & Vanja"
+      },
+      "pedigree": {
+       "father": {
+        "id": 731436,
+        "name": "Nuncio",
+        "nationality": "US"
+       },
+       "mother": {
+        "id": 699651,
+        "name": "Maia F."
+       },
+       "grandfather": {
+        "id": 584617,
+        "name": "Going Kronos",
+        "nationality": "IT"
+       }
+      }
+     },
+     "driver": {
+      "id": 622071,
+      "firstName": "Linda",
+      "lastName": "Sedström",
+      "shortName": "Sed Li",
+      "location": "Askersund",
+      "birth": 1989,
+      "homeTrack": {
+       "id": 32,
+       "name": "Örebro"
+      },
+      "license": "B-tränare: träna, köra",
+      "silks": "Svart, vitt axelp, hängslen och ärmb; sv"
+     },
+     "result": {
+      "place": 7,
+      "finishOrder": 7,
+      "kmTime": {
+       "minutes": 1,
+       "seconds": 14,
+       "tenths": 2
+      },
+      "prizeMoney": 7500,
+      "finalOdds": 40.29,
+      "startNumber": 4
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 4029
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 513,
+       "maxOdds": 513
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 73
+      }
+     },
+     "videos": [
+      {
+       "mediaId": "2663161925252",
+       "timestamp": "2026-08-22T14:37:09"
+      },
+      {
+       "mediaId": "2663165509426",
+       "timestamp": "2026-08-22T14:50:17"
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_5_5",
+     "number": 5,
+     "postPosition": 5,
+     "distance": 2140,
+     "horse": {
+      "id": 784981,
+      "name": "Thankworthy Tile",
+      "age": 5,
+      "sex": "mare",
+      "record": {
+       "code": "K",
+       "startMethod": "volte",
+       "distance": "short",
+       "time": {
+        "minutes": 1,
+        "seconds": 13,
+        "tenths": 5
+       }
+      },
+      "trainer": {
+       "id": 101108,
+       "firstName": "Fredrik B",
+       "lastName": "Larsson",
+       "shortName": "Lar FB",
+       "location": "Sigtuna",
+       "birth": 1971,
+       "homeTrack": {
+        "id": 5,
+        "name": "Solvalla"
+       },
+       "license": "A-tränare: träna, köra",
+       "silks": "Svart, rött axelskärp, gult; svart"
+      },
+      "shoes": {
+       "reported": true,
+       "front": {
+        "hasShoe": false,
+        "changed": true
+       },
+       "back": {
+        "hasShoe": false,
+        "changed": false
+       }
+      },
+      "sulky": {
+       "reported": true,
+       "type": {
+        "code": "VA",
+        "text": "Vanlig",
+        "engText": "Standard",
+        "changed": true
+       },
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 572611,
+      "color": "mörkbrun",
+      "homeTrack": {
+       "id": 5,
+       "name": "Solvalla"
+      },
+      "owner": {
+       "id": 233764,
+       "name": "Dahlman Karin, Sigtuna"
+      },
+      "breeder": {
+       "id": 704904,
+       "name": "Vestmarka AB",
+       "location": "Vinninga"
+      },
+      "pedigree": {
+       "father": {
+        "id": 739710,
+        "name": "Googoo Gaagaa",
+        "nationality": "US"
+       },
+       "mother": {
+        "id": 755172,
+        "name": "Noblesse Tile",
+        "nationality": "NO"
+       },
+       "grandfather": {
+        "id": 635179,
+        "name": "Donato Hanover",
+        "nationality": "US"
+       }
+      }
+     },
+     "driver": {
+      "id": 101108,
+      "firstName": "Fredrik B",
+      "lastName": "Larsson",
+      "shortName": "Lar FB",
+      "location": "Sigtuna",
+      "birth": 1971,
+      "homeTrack": {
+       "id": 5,
+       "name": "Solvalla"
+      },
+      "license": "A-tränare: träna, köra",
+      "silks": "Svart, rött axelskärp, gult; svart"
+     },
+     "result": {
+      "place": 8,
+      "finishOrder": 8,
+      "kmTime": {
+       "minutes": 1,
+       "seconds": 16,
+       "tenths": 0
+      },
+      "galloped": true,
+      "prizeMoney": 5000,
+      "finalOdds": 56.27,
+      "startNumber": 5
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 5627
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 813,
+       "maxOdds": 813
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 39
+      }
+     },
+     "videos": [
+      {
+       "mediaId": "2663168069305",
+       "timestamp": "2026-08-22T14:56:30"
+      },
+      {
+       "mediaId": "2663170117061",
+       "timestamp": "2026-08-22T15:08:53"
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_5_6",
+     "number": 6,
+     "postPosition": 6,
+     "distance": 2140,
+     "horse": {
+      "id": 803453,
+      "name": "Princess Diamond",
+      "nationality": "NL",
+      "age": 4,
+      "sex": "mare",
+      "record": {
+       "code": "aM",
+       "startMethod": "auto",
+       "distance": "medium",
+       "time": {
+        "minutes": 1,
+        "seconds": 12,
+        "tenths": 5
+       }
+      },
+      "trainer": {
+       "id": 560761,
+       "firstName": "Angelica",
+       "lastName": "Jonsson",
+       "shortName": "Jon An",
+       "location": "Floby",
+       "birth": 1983,
+       "homeTrack": {
+        "id": 8,
+        "name": "Axevalla"
+       },
+       "license": "B-tränare: träna, köra för bolag",
+       "silks": "Svart, rosa hängslen och ärmb.; svart"
+      },
+      "shoes": {
+       "reported": true,
+       "front": {
+        "hasShoe": false,
+        "changed": false
+       },
+       "back": {
+        "hasShoe": false,
+        "changed": false
+       }
+      },
+      "sulky": {
+       "reported": true,
+       "type": {
+        "code": "VA",
+        "text": "Vanlig",
+        "engText": "Standard",
+        "changed": false
+       },
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 733903,
+      "color": "brun",
+      "homeTrack": {
+       "id": 8,
+       "name": "Axevalla"
+      },
+      "owner": {
+       "id": 858221,
+       "name": "Jansson Björn, m fl"
+      },
+      "breeder": {
+       "id": 745545,
+       "name": "Stal Mille Fleurs B.V.",
+       "location": "Nederländerna"
+      },
+      "pedigree": {
+       "father": {
+        "id": 775835,
+        "name": "Six Pack",
+        "nationality": "US"
+       },
+       "mother": {
+        "id": 770598,
+        "name": "Hillary Queen",
+        "nationality": "NL"
+       },
+       "grandfather": {
+        "id": 720981,
+        "name": "Quick Wood",
+        "nationality": "FR"
+       }
+      }
+     },
+     "driver": {
+      "id": 161607,
+      "firstName": "Björn",
+      "lastName": "Goop",
+      "shortName": "Goo Bj",
+      "location": "Karlstad",
+      "birth": 1976,
+      "homeTrack": {
+       "id": 15,
+       "name": "Färjestad"
+      },
+      "license": "A-tränare: (Sv/utland): träna, köra",
+      "silks": "Mblå, guldf.midjeband, sömmar; guld"
+     },
+     "result": {
+      "place": 5,
+      "finishOrder": 5,
+      "kmTime": {
+       "minutes": 1,
+       "seconds": 13,
+       "tenths": 7
+      },
+      "prizeMoney": 15000,
+      "finalOdds": 2.38,
+      "startNumber": 6
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 238
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 124,
+       "maxOdds": 124
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 4879
+      }
+     },
+     "videos": [
+      {
+       "mediaId": "2663166021280",
+       "timestamp": "2026-08-22T14:56:24"
+      },
+      {
+       "mediaId": "2663171141119",
+       "timestamp": "2026-08-22T15:09:21"
+      },
+      {
+       "mediaId": "2663172165220",
+       "timestamp": "2026-08-22T15:18:26"
+      },
+      {
+       "mediaId": "2663173189381",
+       "timestamp": "2026-08-22T15:29:28"
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_5_7",
+     "number": 7,
+     "postPosition": 7,
+     "distance": 2140,
+     "horse": {
+      "id": 771822,
+      "name": "You to Ezme",
+      "age": 7,
+      "sex": "mare",
+      "record": {
+       "code": "M",
+       "startMethod": "volte",
+       "distance": "medium",
+       "time": {
+        "minutes": 1,
+        "seconds": 13,
+        "tenths": 5
+       }
+      },
+      "trainer": {
+       "id": 672481,
+       "firstName": "Tenho",
+       "lastName": "Blomerus",
+       "shortName": "Blo Te",
+       "location": "Gävle",
+       "birth": 1979,
+       "homeTrack": {
+        "id": 16,
+        "name": "Gävle"
+       },
+       "license": "B-tränare: träna, köra för bolag"
+      },
+      "shoes": {
+       "reported": true,
+       "front": {
+        "hasShoe": false,
+        "changed": false
+       },
+       "back": {
+        "hasShoe": false,
+        "changed": false
+       }
+      },
+      "sulky": {
+       "reported": true,
+       "type": {
+        "code": "VA",
+        "text": "Vanlig",
+        "engText": "Standard",
+        "changed": false
+       },
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 759200,
+      "color": "svart",
+      "homeTrack": {
+       "id": 16,
+       "name": "Gävle"
+      },
+      "owner": {
+       "id": 847534,
+       "name": "Blomerus Tenho & Oinas Petri"
+      },
+      "breeder": {
+       "id": 709156,
+       "name": "Stall Gustafsberg AB",
+       "location": "Västervik"
+      },
+      "pedigree": {
+       "father": {
+        "id": 736196,
+        "name": "Brillantissime",
+        "nationality": "FR"
+       },
+       "mother": {
+        "id": 671852,
+        "name": "Up Front Lady"
+       },
+       "grandfather": {
+        "id": 643020,
+        "name": "Up Front Larry",
+        "nationality": "US"
+       }
+      }
+     },
+     "driver": {
+      "id": 722626,
+      "firstName": "Mats E",
+      "lastName": "Djuse",
+      "shortName": "Dju ME",
+      "location": "Hudiksvall",
+      "birth": 1998,
+      "homeTrack": {
+       "id": 16,
+       "name": "Gävle"
+      },
+      "license": "Körlicens kategori 1: köra",
+      "silks": "Svart, gult axelparti och rött bröstb.; sv"
+     },
+     "result": {
+      "place": 6,
+      "finishOrder": 6,
+      "kmTime": {
+       "minutes": 1,
+       "seconds": 13,
+       "tenths": 8
+      },
+      "prizeMoney": 11500,
+      "finalOdds": 27.26,
+      "startNumber": 7
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 2726
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 336,
+       "maxOdds": 336
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 202
+      }
+     }
+    },
+    {
+     "id": "2026-08-22_23_5_8",
+     "number": 8,
+     "postPosition": 8,
+     "distance": 2140,
+     "horse": {
+      "id": 787806,
+      "name": "Kueen Simoni",
+      "age": 5,
+      "sex": "mare",
+      "record": {
+       "code": "M",
+       "startMethod": "volte",
+       "distance": "medium",
+       "time": {
+        "minutes": 1,
+        "seconds": 14,
+        "tenths": 3
+       }
+      },
+      "trainer": {
+       "id": 657173,
+       "firstName": "Jonas",
+       "lastName": "Edlund",
+       "shortName": "Edl Jo",
+       "location": "Torpshammar",
+       "birth": 1992,
+       "homeTrack": {
+        "id": 9,
+        "name": "Bergsåker"
+       },
+       "license": "B-tränare: träna, köra",
+       "silks": "Svart, mörkgrön/vita stolpar och ärmr; mgr"
+      },
+      "shoes": {
+       "reported": true,
+       "front": {
+        "hasShoe": false,
+        "changed": true
+       },
+       "back": {
+        "hasShoe": true,
+        "changed": false
+       }
+      },
+      "sulky": {
+       "reported": true,
+       "type": {
+        "code": "VA",
+        "text": "Vanlig",
+        "engText": "Standard",
+        "changed": false
+       },
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 520500,
+      "color": "mörkbrun",
+      "homeTrack": {
+       "id": 9,
+       "name": "Bergsåker"
+      },
+      "owner": {
+       "id": 856260,
+       "name": "Stall Leed"
+      },
+      "breeder": {
+       "id": 547599,
+       "name": "Simoni Peter",
+       "location": "Polen"
+      },
+      "pedigree": {
+       "father": {
+        "id": 617124,
+        "name": "Orlando Vici",
+        "nationality": "FR"
+       },
+       "mother": {
+        "id": 713202,
+        "name": "Queen Goutier"
+       },
+       "grandfather": {
+        "id": 685167,
+        "name": "Scipion du Goutier",
+        "nationality": "FR"
+       }
+      }
+     },
+     "driver": {
+      "id": 600062,
+      "firstName": "Rikard N",
+      "lastName": "Skoglund",
+      "shortName": "Sko RN",
+      "location": "Sigtuna",
+      "birth": 1989,
+      "homeTrack": {
+       "id": 5,
+       "name": "Solvalla"
+      },
+      "license": "A-tränare: träna, köra",
+      "silks": "Blå, vit stjärna, vita ärmsömmar; blå"
+     },
+     "result": {
+      "place": 2,
+      "finishOrder": 2,
+      "kmTime": {
+       "minutes": 1,
+       "seconds": 13,
+       "tenths": 6
+      },
+      "prizeMoney": 75000,
+      "finalOdds": 50.94,
+      "startNumber": 8
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 5094
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 702,
+       "maxOdds": 702,
+       "odds": 702
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 35
+      }
+     }
+    },
+    {
+     "id": "2026-08-22_23_5_9",
+     "number": 9,
+     "postPosition": 1,
+     "distance": 2160,
+     "horse": {
+      "id": 786771,
+      "name": "Tangerina",
+      "age": 5,
+      "sex": "mare",
+      "record": {
+       "code": "M",
+       "startMethod": "volte",
+       "distance": "medium",
+       "time": {
+        "minutes": 1,
+        "seconds": 13,
+        "tenths": 7
+       }
+      },
+      "trainer": {
+       "id": 166404,
+       "firstName": "Ulf",
+       "lastName": "Stenströmer",
+       "shortName": "Ste Ul",
+       "location": "Skara",
+       "birth": 1974,
+       "homeTrack": {
+        "id": 8,
+        "name": "Axevalla"
+       },
+       "license": "A-tränare: träna, köra",
+       "silks": "Vit,mgrönt axelp, hängsl och ärm; mgrön"
+      },
+      "shoes": {
+       "reported": true,
+       "front": {
+        "hasShoe": false,
+        "changed": false
+       },
+       "back": {
+        "hasShoe": false,
+        "changed": false
+       }
+      },
+      "sulky": {
+       "reported": true,
+       "type": {
+        "code": "VA",
+        "text": "Vanlig",
+        "engText": "Standard",
+        "changed": false
+       },
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 1354300,
+      "color": "mörkbrun",
+      "homeTrack": {
+       "id": 8,
+       "name": "Axevalla"
+      },
+      "owner": {
+       "id": 775853,
+       "name": "Lars Lindberg Försäljning KB,Mariestad"
+      },
+      "breeder": {
+       "id": 617392,
+       "name": "Alm Lina",
+       "location": "Frillesås"
+      },
+      "pedigree": {
+       "father": {
+        "id": 748989,
+        "name": "Perfect Spirit",
+        "nationality": "US"
+       },
+       "mother": {
+        "id": 746457,
+        "name": "Zingy Kronos"
+       },
+       "grandfather": {
+        "id": 685124,
+        "name": "Muscle Hill",
+        "nationality": "US"
+       }
+      }
+     },
+     "driver": {
+      "id": 53685,
+      "firstName": "Ulf",
+      "lastName": "Ohlsson",
+      "shortName": "Ohl Ul",
+      "location": "Knivsta",
+      "birth": 1964,
+      "homeTrack": {
+       "id": 5,
+       "name": "Solvalla"
+      },
+      "license": "A-tränare: träna, köra",
+      "silks": "Mörkblå, vita stolpar; mblå"
+     },
+     "result": {
+      "place": 4,
+      "finishOrder": 4,
+      "kmTime": {
+       "minutes": 1,
+       "seconds": 13,
+       "tenths": 0
+      },
+      "prizeMoney": 25000,
+      "finalOdds": 12.17,
+      "startNumber": 9
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 1217
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 223,
+       "maxOdds": 223
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 607
+      }
+     },
+     "videos": [
+      {
+       "mediaId": "2663168069309",
+       "timestamp": "2026-08-22T14:57:10"
+      },
+      {
+       "mediaId": "2663170117060",
+       "timestamp": "2026-08-22T15:08:51"
+      }
+     ]
+    },
+    {
+     "id": "2026-08-22_23_5_10",
+     "number": 10,
+     "postPosition": 2,
+     "distance": 2160,
+     "horse": {
+      "id": 812572,
+      "name": "Monkey Wine",
+      "nationality": "US",
+      "age": 4,
+      "sex": "mare",
+      "record": {
+       "code": "aK",
+       "startMethod": "auto",
+       "distance": "short",
+       "time": {
+        "minutes": 1,
+        "seconds": 10,
+        "tenths": 5
+       }
+      },
+      "trainer": {
+       "id": 189679,
+       "firstName": "Daniel",
+       "lastName": "Wäjersten",
+       "shortName": "Wäj Da",
+       "location": "Kovland",
+       "birth": 1990,
+       "homeTrack": {
+        "id": 9,
+        "name": "Bergsåker"
+       },
+       "license": "A-tränare: träna, köra",
+       "silks": "Blå, vitt axelparti och silver vinkel; blå"
+      },
+      "shoes": {
+       "reported": true,
+       "front": {
+        "hasShoe": false,
+        "changed": false
+       },
+       "back": {
+        "hasShoe": false,
+        "changed": false
+       }
+      },
+      "sulky": {
+       "reported": true,
+       "type": {
+        "code": "VA",
+        "text": "Vanlig",
+        "engText": "Standard",
+        "changed": true
+       },
+       "colour": {
+        "code": "GU",
+        "text": "Gul",
+        "engText": "Yellow",
+        "changed": false
+       }
+      },
+      "money": 1280710,
+      "color": "brun",
+      "homeTrack": {
+       "id": 9,
+       "name": "Bergsåker"
+      },
+      "owner": {
+       "id": 847601,
+       "name": "Emida Holding AB, Limhamn"
+      },
+      "breeder": {
+       "id": 557771,
+       "name": "Martinsson Peter",
+       "location": "Helsingborg"
+      },
+      "pedigree": {
+       "father": {
+        "id": 764113,
+        "name": "Gimpanzee",
+        "nationality": "US"
+       },
+       "mother": {
+        "id": 796758,
+        "name": "Back Splash",
+        "nationality": "US"
+       },
+       "grandfather": {
+        "id": 761331,
+        "name": "Triumphant Caviar",
+        "nationality": "US"
+       }
+      }
+     },
+     "driver": {
+      "id": 189679,
+      "firstName": "Daniel",
+      "lastName": "Wäjersten",
+      "shortName": "Wäj Da",
+      "location": "Kovland",
+      "birth": 1990,
+      "homeTrack": {
+       "id": 9,
+       "name": "Bergsåker"
+      },
+      "license": "A-tränare: träna, köra",
+      "silks": "Blå, vitt axelparti och silver vinkel; blå"
+     },
+     "result": {
+      "place": 1,
+      "finishOrder": 1,
+      "kmTime": {
+       "minutes": 1,
+       "seconds": 12,
+       "tenths": 7
+      },
+      "prizeMoney": 150000,
+      "finalOdds": 2.26,
+      "startNumber": 10
+     },
+     "pools": {
+      "vinnare": {
+       "@type": ".VinnareStartPool",
+       "odds": 226,
+       "finalOdds": 226
+      },
+      "plats": {
+       "@type": ".PlatsStartPool",
+       "minOdds": 121,
+       "maxOdds": 121,
+       "odds": 121
+      },
+      "V85": {
+       "@type": ".MarkingBetStartPool",
+       "betDistribution": 3638
+      }
+     },
+     "videos": [
+      {
+       "mediaId": "2663166021289",
+       "timestamp": "2026-08-22T14:57:10"
+      },
+      {
+       "mediaId": "2663172677029",
+       "timestamp": "2026-08-22T15:09:34"
+      }
+     ]
+    }
+   ],
+   "mergedPools": [
+    {
+     "name": "A",
+     "betTypes": [
+      "vinnare",
+      "plats",
+      "komb",
+      "tvilling",
+      "trio"
+     ]
+    }
+   ]
+  }
+ ],
+ "currentVersion": 1787751138737,
+ "newBettingSystem": true,
+ "type": "V85"
+}

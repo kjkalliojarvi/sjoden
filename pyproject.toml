@@ -1,0 +1,36 @@
+[project]
+name = "sjoden"
+version = "0.1.0"
+description = "Collects Swedish harness racing past performances from ATG's racinginfo API"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Kari Kalliojärvi", email = "kari.kalliojarvi@elisa.fi" }
+]
+keywords = ["ATG", "trotting", "harness racing", "Sweden"]
+requires-python = ">=3.14"
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "duckdb>=1.5.5",
+    "pydantic>=2.13.4",
+    "requests>=2.34.2",
+]
+
+[project.scripts]
+sjoden = "sjoden.__main__:sjoden"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
