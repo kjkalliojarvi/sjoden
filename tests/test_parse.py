@@ -204,3 +204,65 @@ def test_games_give_bet_distribution_and_pools(paths):
     # Hundredths of a percent — this is the check that establishes the unit.
     assert 9900 <= total <= 10100
     assert turnover > 0
+
+
+# --- payloads that are not race cards ---------------------------------------
+
+def _parsed_at(db_path: str, race_id: str):
+    with db_read(db_path) as conn:
+        return conn.execute(
+            "SELECT parsedAt FROM atg.manifest WHERE entityId = ?",
+            [race_id]).fetchone()[0]
+
+
+def test_a_card_of_unregistered_horses_is_excluded(paths):
+    """Show jumping, which ATG files under trackId 47 tagged `sport: gallop`.
+
+    None of the horses are in the racing registry, so no start carries
+    `horse.id` or `trainer.id`. Nothing here can be joined to a horse's career,
+    so the card is dropped on purpose — and stamped, so it is not reconsidered.
+    """
+    raw_root, db_path = paths
+    payload = load(AUTO_RACE)
+    for start in payload['starts']:
+        del start['horse']['id']
+        start['horse']['trainer'].pop('id', None)
+    seed(raw_root, db_path, races=[payload])
+    assert parse_all(db_path, raw_root)['races'] == 0
+    assert _parsed_at(db_path, payload['id']) is not None
+
+
+def test_one_unregistered_start_excludes_the_whole_payload(paths):
+    """The ante-post shape: a real field beside an 'Övriga Hästar' bucket.
+
+    Tempting to keep by dropping just the synthetic start — but these carry
+    `finalOdds` and no result at all, and the race they price is already in the
+    archive under its own id. Keeping one would duplicate every horse in it and
+    give each a start that never ran, carrying stale careerWinnings.
+    """
+    raw_root, db_path = paths
+    payload = load(AUTO_RACE)
+    del payload['starts'][-1]['horse']['id']
+    seed(raw_root, db_path, races=[payload])
+    counts = parse_all(db_path, raw_root)
+    assert counts['races'] == 0 and counts['starts'] == 0
+    with db_read(db_path) as conn:
+        assert conn.execute('SELECT count(*) FROM atg.start').fetchone()[0] == 0
+    assert _parsed_at(db_path, payload['id']) is not None
+
+
+def test_a_payload_that_fails_validation_stays_unparsed(paths):
+    """The skip has to leave `parsedAt` NULL.
+
+    Stamping it made the loss permanent: an incremental parse never looks at a
+    stamped task again, so a payload skipped by a parser bug was gone until
+    somebody thought to run `--full`.
+    """
+    raw_root, db_path = paths
+    payload = load(AUTO_RACE)
+    del payload['starts'][0]['number']      # required, and unrelated to horse.id
+    seed(raw_root, db_path, races=[payload])
+    assert parse_all(db_path, raw_root)['races'] == 0
+    assert _parsed_at(db_path, payload['id']) is None
+    # Still outstanding, so a later run retries it without --full.
+    assert parse_all(db_path, raw_root)['races'] == 0

@@ -188,19 +188,44 @@ def _read(raw_root: str, task):
     return payload
 
 
+def is_race_card(payload: dict) -> bool:
+    """Whether this payload is a race, rather than a market ATG files as one.
+
+    A start whose horse carries no `horse.id` is not a runner from the racing
+    registry, and one is enough to disqualify the payload. Two shapes reach
+    here, both under trackId 47 and neither of them a race:
+
+    - an equestrian card — show jumping, tagged `sport: 'gallop'` — where no
+      horse is registered and there is nothing raceworthy at all;
+    - an ante-post market, which lists a real field beside a synthetic 'Övriga
+      Hästar' bucket for the rest of it. These carry `finalOdds` and nothing
+      else: no place, no finishing order, no time, no prize money. The race
+      they price runs at a real track and is already in the archive under its
+      own id, so keeping the market would duplicate every horse in it and pin
+      a `careerWinnings` figure that is weeks stale onto a start that never
+      happened.
+
+    Excluding these is also what keeps the caller's ValidationError branch
+    meaningful: what remains there is a shape nobody has seen before.
+    """
+    return all((s.get('horse') or {}).get('id') is not None
+               for s in payload.get('starts') or [])
+
+
 def _each_payload(manifest: Manifest, raw_root: str, endpoint_type: str,
-                  consumed: list, unparsed_only: bool = True):
+                  unparsed_only: bool = True):
     """Yield (task, payload) for the archived responses of one endpoint type.
 
-    Tasks are appended to `consumed` *after* their body has run, so the caller
-    can stamp them once the phase has flushed — see Manifest.mark_parsed.
+    Stamping is the caller's job: it appends a task to its own `consumed` list
+    once the payload has been loaded — or deliberately excluded — so that a
+    payload the parser could not handle stays unparsed and is retried on the
+    next run. See Manifest.mark_parsed.
     """
     for task in manifest.done(endpoint_type, unparsed_only):
         payload = _read(raw_root, task)
         if payload is None:
             continue
         yield task, payload
-        consumed.append(task)
 
 
 def _parse_races(manifest: Manifest, raw_root: str, db: ArchiveDb,
@@ -209,6 +234,7 @@ def _parse_races(manifest: Manifest, raw_root: str, db: ArchiveDb,
     races, starts, horses, persons = [], [], [], []
     consumed = []
     n_races = n_starts = 0
+    n_not_a_race = 0
     # atg.person merges drivers and trainers on the assumption that both roles
     # draw on one licence namespace. This is where that assumption is actually
     # tested: the table's primary key would swallow a collision silently, so
@@ -218,7 +244,12 @@ def _parse_races(manifest: Manifest, raw_root: str, db: ArchiveDb,
     seen_names: dict[int, str] = {}
     clashes: dict[int, set[str]] = {}
     for task, payload in _each_payload(manifest, raw_root, 'atg_race',
-                                       consumed, unparsed_only):
+                                       unparsed_only):
+        if not is_race_card(payload):
+            # Excluded on purpose, so it is stamped and not reconsidered.
+            n_not_a_race += 1
+            consumed.append(task)
+            continue
         try:
             race = Race.model_validate(payload)
         except ValidationError as e:
@@ -238,6 +269,7 @@ def _parse_races(manifest: Manifest, raw_root: str, db: ArchiveDb,
                 if name and seen_names.setdefault(person.id, name) != name:
                     clashes.setdefault(person.id, {seen_names[person.id]}).add(name)
             n_starts += 1
+        consumed.append(task)
         _flush(db.store_races, races)
         _flush(db.store_starts, starts)
         _flush(db.store_horses, horses)
@@ -250,6 +282,9 @@ def _parse_races(manifest: Manifest, raw_root: str, db: ArchiveDb,
     _flush(db.store_races, races, force=True)
     _flush(db.store_starts, starts, force=True)
     manifest.mark_parsed(consumed)
+    if n_not_a_race:
+        print(f'{n_not_a_race} payloads excluded — not race cards '
+              '(show jumping, ante-post markets)')
     if clashes:
         print(f'{len(clashes)} person ids carry more than one name — '
               'atg.person may need splitting by role:')
@@ -293,7 +328,7 @@ def _parse_games(manifest: Manifest, raw_root: str, db: ArchiveDb,
     consumed = []
     n_pools = n_dist = 0
     for task, payload in _each_payload(manifest, raw_root, 'atg_game',
-                                       consumed, unparsed_only):
+                                       unparsed_only):
         try:
             game = Game.model_validate(payload)
         except ValidationError as e:
@@ -315,6 +350,7 @@ def _parse_games(manifest: Manifest, raw_root: str, db: ArchiveDb,
                     distributions.append((race.id, start.number, game_type,
                                           start_pool['betDistribution']))
                     n_dist += 1
+        consumed.append(task)
         _flush(db.store_pools, pools)
         _flush(db.store_bet_distributions, distributions)
     _flush(db.store_pools, pools, force=True)

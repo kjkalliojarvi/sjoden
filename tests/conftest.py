@@ -64,7 +64,9 @@ def seed(raw_root: str, db_path: str, races=(), games=()):
     """
     tasks = []
     for name in races:
-        payload = load(name)
+        # A dict is a payload derived in the test — the variants that no
+        # captured fixture holds, such as a card of unregistered horses.
+        payload = load(name) if isinstance(name, str) else name
         meet_date = payload['id'].split('_')[0]
         task = race_task(meet_date, payload['track']['id'], payload['id'])
         _store(raw_root, task.rawPath, payload)
