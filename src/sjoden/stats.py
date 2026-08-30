@@ -8,6 +8,10 @@ against a temporary archive the way `test_validate` tests `validate`'s checks.
 Four traps are handled here once rather than in each caller, because each one
 is a way the ATG schema reads plausibly and answers wrongly:
 
+- **Gallop cards are excluded everywhere.** This is a harness archive; a flat
+  race shares the calendar endpoint and nothing else, and its 20,196 starts
+  carry no post, sulky, time or shoe report at all. Monté stays — it is trotting
+  without a sulky, not a different sport.
 - **Scratched starts are excluded everywhere.** A scratching carries shoes, a
   sulky and a post position — entry data is what the card has at that point —
   but the horse did not race. Counting one invents a shoe combination it never
@@ -50,6 +54,24 @@ from .archive_db import DEFAULT_DB, db_read
 # without a `result.scratchings` list leaves it NULL, and `NOT NULL` is NULL —
 # which would filter out every such row instead of keeping it.
 NOT_SCRATCHED = 'NOT coalesce(s.scratched, false)'
+
+# Gallop cards are excluded everywhere: this is a harness archive, and a flat
+# race is a different sport that happens to share the calendar endpoint.
+#
+# They also carry nothing to count. Across all 20,196 non-scratched gallop
+# starts there is not one post position, sulky, km time or shoe report — every
+# axis but Track and the counterpart role reads 'unknown' for the whole lot.
+# Dropping them empties both unknown buckets outright: no non-gallop race lacks
+# a start method, and no non-gallop start lacks a post.
+#
+# Monté stays. It is trotting, ridden rather than driven, so it has no sulky —
+# but it has real posts, times and shoe reports on all 16,441 of its starts, and
+# its NULL sulky is a fact about the discipline rather than a missing value.
+#
+# IS DISTINCT FROM rather than `<>`, which is NULL on a NULL sport and would
+# drop a card whose sport went unparsed. Zero rows are in that state today; the
+# form costs nothing and fails toward keeping data.
+SULKY_CARDS = "r.sport IS DISTINCT FROM 'gallop'"
 
 # One join for every query, so a label expression can reach race, person and
 # horse columns without each Subject having to know which of them it needs.
@@ -97,11 +119,26 @@ _SHOES = """CASE WHEN NOT coalesce(s.shoesReported, false) THEN 'unknown'
             ELSE (CASE WHEN s.shoesFront THEN 'shod' ELSE 'barefoot' END) || ' / '
               || (CASE WHEN s.shoesBack  THEN 'shod' ELSE 'barefoot' END) END"""
 
-# ATG's two sulky codes, spelled out. NULL is 'unknown' and stays visible on
-# 66,314 starts — mostly older cards that did not carry the field.
-_SULKY = """CASE s.sulkyType WHEN 'VA' THEN 'VA standard'
-                             WHEN 'AM' THEN 'AM american'
-                             ELSE 'unknown' END"""
+# ATG's two sulky codes, spelled out, with monté as a third bucket rather than
+# a NULL.
+#
+# A ridden start has no sulky, so folding it into 'unknown' would mix 16,441
+# starts of "there was none" with 406 of "one went unreported" — two different
+# facts, and only the second is a gap in the data.
+#
+# **The reported sulky wins over both monté signals, and that ordering is the
+# point.** `sport = 'monté'` is ATG's own field; `monte` is `parse.is_monte`, a
+# text match for 'monté' over the race name and terms, which is a heuristic and
+# has 76 false positives — driven trot races whose name mentions the word. Those
+# 76 carry a real sulky code, so testing the code first labels them by what was
+# actually behind the horse and leaves the ridden bucket to the races that are
+# genuinely ridden. Either monté signal then qualifies, because the two
+# disagree only in that direction.
+_SULKY = """CASE WHEN s.sulkyType = 'VA' THEN 'VA standard'
+                 WHEN s.sulkyType = 'AM' THEN 'AM american'
+                 WHEN r.sport = 'monté' OR coalesce(r.monte, false)
+                      THEN 'monté (ridden)'
+                 ELSE 'unknown' END"""
 
 # Banded, not grouped raw. The archive holds distances from 640 to 4,800 m and
 # 2140 alone is half of them, so grouping the column produces a handful of real
@@ -129,15 +166,44 @@ _DISTANCE_ORDER = """CASE WHEN s.distance <  1800 THEN 0
 # which have no trot start method at all.
 _METHOD = "coalesce(r.startMethod, 'unknown')"
 
-# The post, 1-16. cast to text so the bucket label is a string like every other
-# axis — `Axis.starts` compares the label against a `?` bound from a table cell,
-# which is text by the time it comes back out of the UI.
-_POST = "coalesce(cast(s.postPosition AS varchar), 'unknown')"
+# The post, prefixed by the start method, because the bare number is two
+# different questions averaged together.
+#
+# A mobile start lines the field up abreast, so the inside is a shorter trip; a
+# volte start has them turning into the race from a standing tier, where the
+# inside is traffic. The archive says so plainly — win rate by post, over every
+# non-scratched start:
+#
+#     post   auto            volte
+#     1      8.8 %  26,320   11.8 %  35,667
+#     4     13.0 %  26,302    8.2 %  24,598
+#     5     13.6 %  26,224    7.5 %  17,373
+#
+# Auto peaks at 4-5 and volte at 1, so a merged bucket 5 reports 11 % — a figure
+# that describes neither. Merging also hides the ranges: auto runs to 16 and
+# volte stops at 12.
+#
+# NULL keeps one 'unknown' bucket rather than becoming 'unknown unknown': the
+# 20,196 starts with no post are the gallop cards, which have no trot start
+# method either, so the two unknowns are one fact and not a pair.
+#
+# cast to text so the bucket label is a string like every other axis —
+# `Axis.starts` compares the label against a `?` bound from a table cell, which
+# is text by the time it comes back out of the UI.
+_POST = f"""CASE WHEN s.postPosition IS NULL THEN 'unknown'
+                 ELSE {_METHOD} || ' ' || cast(s.postPosition AS varchar) END"""
 
-# Numerically, or the labels sort 1, 10, 11, 12, …, 2. 99 puts the 22,024
-# unknowns last rather than first, which a NULL would do in DuckDB's default
-# ordering.
-_POST_ORDER = 'coalesce(s.postPosition, 99)'
+# Grouped by method, then numerically within it, or the labels sort 'auto 1',
+# 'auto 10', 'auto 11', …, 'auto 2'. One key does both: the method's rank times
+# a hundred, plus the post, which is safe because no field reaches 100. The
+# unknowns sort last rather than first, which a NULL would do in DuckDB's
+# default ordering.
+_POST_ORDER = """CASE WHEN s.postPosition IS NULL THEN 9999
+                      ELSE (CASE r.startMethod WHEN 'auto'  THEN 0
+                                               WHEN 'volte' THEN 1
+                                               WHEN 'line'  THEN 2
+                                               ELSE 3 END) * 100
+                           + s.postPosition END"""
 
 # The layoff buckets sort by length, so the label cannot be the sort key: as
 # text they come out '15-30', '31-60', '<= 14', '> 60'. A second CASE gives the
@@ -241,10 +307,12 @@ _FOLDED = "lower(strip_accents({})) LIKE '%' || lower(strip_accents(?)) || '%'"
 # is how you tell Raja Piraya from Raja Knight.
 SQL_SEARCH_HORSES = f"""
     SELECT h.name AS horse, h.birthYear AS born, h.sex AS sex,
-           count(s.raceId) FILTER (WHERE NOT coalesce(s.scratched, false)) AS starts,
+           count(s.raceId) FILTER (WHERE NOT coalesce(s.scratched, false)
+                                     AND {SULKY_CARDS}) AS starts,
            h.horseId AS horseId
     FROM atg.horse h
     LEFT JOIN atg.start s ON s.horseId = h.horseId
+    LEFT JOIN atg.race r ON r.raceId = s.raceId
     WHERE {_FOLDED.format('h.name')} OR cast(h.horseId AS varchar) = ?
     GROUP BY h.horseId, h.name, h.birthYear, h.sex
     ORDER BY starts DESC, horse
@@ -270,8 +338,10 @@ _SQL_SEARCH_PERSON = """
            p.personId AS personId
     FROM atg.person p
     JOIN atg.start s ON s.{column} = p.personId
+    JOIN atg.race r USING (raceId)
     WHERE ({folded} OR cast(p.personId AS varchar) = ?)
       AND NOT coalesce(s.scratched, false)
+      AND {sulky}
     GROUP BY p.personId, {role}, p.location
     ORDER BY starts DESC, {role}
     LIMIT ?
@@ -282,7 +352,8 @@ def _person_search(role: str, column: str) -> str:
     """The driver or the trainer search — same query, different start column."""
     name = "p.firstName || ' ' || p.lastName"
     return _SQL_SEARCH_PERSON.format(
-        name=name, role=role, column=column, folded=_FOLDED.format(name))
+        name=name, role=role, column=column, folded=_FOLDED.format(name),
+        sulky=SULKY_CARDS)
 
 
 class Axis(NamedTuple):
@@ -359,7 +430,8 @@ COMMON = (
     Axis('Distance', 'distance', _DISTANCE, f'{_DISTANCE_ORDER}, distance',
          _DISTANCE_ORDER),
     Axis('Start method', 'start method', _METHOD, 'starts DESC, "start method"'),
-    Axis('Post position', 'post', _POST, _POST_ORDER, _POST_ORDER),
+    Axis('Post position (per start method)', 'post', _POST, _POST_ORDER,
+         _POST_ORDER),
     Axis('Days since previous start', 'days since previous', _LAYOFF,
          _LAYOFF_ORDER, _LAYOFF_ORDER),
     Axis('Track (top 5 by starts)', 'track', 'r.trackName', 'starts DESC, track',
@@ -393,7 +465,7 @@ class Subject(NamedTuple):
 
 
 def _frm(column: str) -> str:
-    return f'{JOINS} WHERE {column} = ? AND {NOT_SCRATCHED}'
+    return f'{JOINS} WHERE {column} = ? AND {NOT_SCRATCHED} AND {SULKY_CARDS}'
 
 
 HORSE = Subject('horse', _frm('s.horseId'), START_COLUMNS,
