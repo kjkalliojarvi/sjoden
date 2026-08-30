@@ -65,7 +65,9 @@ survive even if the endpoint is closed to scraping.
   temporary archive and runnable on their own (`python -m sjoden.stats 'järvsö' [driver]`);
   `tui.py` is all widgets and holds no SQL. A `Subject` is whose starts are counted — horse,
   trainer or driver, cycled with `t` — and an `Axis` is one way of grouping them, with its
-  bucket label written **once** so the count a bucket shows is the count it opens.
+  bucket label written **once** so the count a bucket shows is the count it opens. Gallop
+  cards are excluded throughout (they carry no post, sulky, time or shoe report); monté is
+  kept, being trotting without a sulky rather than a different sport.
 
 ### The `early` status — why a premature crawl is not destructive here
 

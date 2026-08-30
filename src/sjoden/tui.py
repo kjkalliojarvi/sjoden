@@ -50,12 +50,16 @@ GAP = ' '
 LEGEND = ("shoes: front / rear, as ATG reported them — 'unknown' means it did not report\n"
           "plc: the finishing order · 'dq <code>' a disqualification · '-' no classified "
           "finish\n"
+          "post position is counted per start method: the inside is a shorter trip off an "
+          "auto and traffic off a volte\n"
           "days since previous start is the horse's own gap, whoever drove or trained it — "
           "'unknown' means no earlier start is known, not a zero gap\n"
           "gallop and dq overlap the placings rather than adding to them: a horse can "
           "gallop and still win\n"
           "odds are the final win odds, prize money is this race's, in kronor\n"
-          "scratched starts are excluded throughout")
+          "gallop cards are excluded throughout, and scratched starts with them\n"
+          "sulky: monté is ridden and has none — 'unknown' is a sulky that went "
+          "unreported, which is a different thing")
 
 
 class ClickableTable(DataTable):

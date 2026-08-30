@@ -46,6 +46,38 @@ def card(date: str, number: int = 1, scratched: tuple[int, ...] = ()) -> dict:
     return payload
 
 
+def _monte_card(date: str) -> dict:
+    """Trotting under saddle: a real start with no sulky to report."""
+    payload = card(date)
+    payload['sport'] = 'monté'
+    payload['monte'] = True
+    for start in payload['starts']:
+        # The sulky hangs off the horse, and a ridden start has none to report.
+        start['horse'].pop('sulky', None)
+    return payload
+
+
+def _gallop_card(date: str) -> dict:
+    """The same card tagged as a flat race — a different sport, not a variant."""
+    payload = card(date)
+    payload['sport'] = 'gallop'
+    return payload
+
+
+def _at_post(date: str, post: int) -> dict:
+    """The card with the subject horse moved to another post."""
+    payload = card(date)
+    payload['starts'][0]['postPosition'] = post
+    return payload
+
+
+def _volte_card(date: str) -> dict:
+    """The same card run as a volte start, so one horse gets both methods."""
+    payload = card(date)
+    payload['startMethod'] = 'volte'
+    return payload
+
+
 def archive(paths, races):
     raw_root, db_path = paths
     seed(raw_root, db_path, races=races)
@@ -236,6 +268,118 @@ def test_the_layoff_buckets_sort_by_length_not_alphabetically(paths):
                                         '> 60 days',
                                         'unknown (no earlier start known)']
         assert [r[1] for r in rows] == [1, 2, 2, 1, 1]
+
+
+# --- gallop cards -----------------------------------------------------------
+
+def test_a_gallop_card_is_not_counted(paths, who):
+    """This is a harness archive; a flat race shares only the calendar endpoint.
+
+    It also has nothing to count: across the live archive's 20,196 non-scratched
+    gallop starts there is not one post, sulky, km time or shoe report.
+    """
+    subject, key = who
+    db_path = archive(paths, [card('2026-08-01'), _gallop_card('2026-08-15')])
+    with db_read(db_path) as conn:
+        assert overall(conn, subject, key)['starts'] == 1
+        _, opened = stats.bucket_starts(conn, subject, stats.COMMON[0], key)
+        assert len(opened) == 1
+
+
+def test_the_search_count_agrees_with_the_panel(paths, who):
+    """Both sides have to apply the same exclusions, or the screen contradicts
+    itself: the hit list would say three starts and the Overall panel one.
+
+    The horse search reaches `atg.race` through a LEFT JOIN for exactly this,
+    and the person searches through an inner one.
+    """
+    subject, key = who
+    db_path = archive(paths, [card('2026-08-01'), _gallop_card('2026-08-15'),
+                              _gallop_card('2026-08-22')])
+    with db_read(db_path) as conn:
+        names, rows = stats.search(conn, subject, str(key))
+        assert rows[0][names.index('starts')] == overall(conn, subject, key)['starts'] == 1
+
+
+def test_monte_is_kept(paths, who):
+    """Trotting under saddle is trotting: ridden, so no sulky, but a real start.
+
+    Its missing sulky is a fact about the discipline rather than a gap in the
+    data, so it gets a bucket of its own rather than joining the unreported.
+    """
+    subject, key = who
+    db_path = archive(paths, [_monte_card('2026-08-01')])
+    with db_read(db_path) as conn:
+        assert overall(conn, subject, key)['starts'] == 1
+        rows = rows_of(conn, subject, axis('Sulky'), key)
+        assert [r[0] for r in rows] == ['monté (ridden)']
+
+
+def test_a_reported_sulky_outranks_the_monte_name_heuristic(paths):
+    """`monte` is `parse.is_monte`, a text match over the race name and terms.
+
+    It has 76 false positives on the live archive — driven trot races whose name
+    mentions the word — and all 76 carry a real sulky code. Testing the code
+    first labels them by what was actually behind the horse.
+    """
+    payload = card('2026-08-01')
+    payload['name'] = 'Monté Cup Consolation'          # trips is_monte
+    db_path = archive(paths, [payload])
+    with db_read(db_path) as conn:
+        rows = rows_of(conn, stats.HORSE, axis('Sulky'), HORSE_ID)
+        assert [r[0] for r in rows] == ['AM american']
+
+
+def test_an_unreported_sulky_is_not_a_ridden_start(paths):
+    """The whole point of the third bucket: 16,441 'there was none' against 406
+    'one went unreported'. Only the second is missing data."""
+    payload = card('2026-08-01')
+    for start in payload['starts']:
+        start['horse'].pop('sulky', None)
+    db_path = archive(paths, [payload])
+    with db_read(db_path) as conn:
+        rows = rows_of(conn, stats.HORSE, axis('Sulky'), HORSE_ID)
+        assert [r[0] for r in rows] == ['unknown']
+
+
+# --- the post position axis -------------------------------------------------
+
+def test_post_positions_are_counted_per_start_method(paths):
+    """A bare post number averages two different questions.
+
+    A mobile start lines the field up abreast, so the inside is a shorter trip;
+    a volte start has them turning in from a standing tier, where it is traffic.
+    Over the live archive auto peaks at post 4-5 (13.0 %, 13.6 %) and volte at
+    post 1 (11.8 %), so a merged bucket 5 reports a figure describing neither.
+    """
+    db_path = archive(paths, [card('2026-08-01'), _volte_card('2026-08-08')])
+    with db_read(db_path) as conn:
+        rows = rows_of(conn, stats.HORSE, axis('Post position'), HORSE_ID)
+        assert [r[0] for r in rows] == ['auto 1', 'volte 1']
+        assert [r[1] for r in rows] == [1, 1]
+
+
+def test_the_post_axis_sorts_by_method_then_number(paths):
+    """Or the labels come out 'auto 1', 'auto 10', 'auto 11', …, 'auto 2'."""
+    db_path = archive(paths, [_at_post('2026-08-01', 10), _at_post('2026-08-08', 2)])
+    with db_read(db_path) as conn:
+        rows = rows_of(conn, stats.HORSE, axis('Post position'), HORSE_ID)
+        assert [r[0] for r in rows] == ['auto 2', 'auto 10']
+
+
+def test_a_start_with_no_post_is_one_unknown_not_two(paths):
+    """The gallop cards have no post and no trot start method.
+
+    Concatenating both would read 'unknown unknown', which is one fact spelled
+    twice. 20,196 live starts are in this state.
+    """
+    db_path = career(paths)
+    with db_ops(db_path) as conn:
+        conn.execute('UPDATE atg.start SET postPosition = NULL')
+        conn.execute('UPDATE atg.race SET startMethod = NULL')
+    with db_read(db_path) as conn:
+        rows = rows_of(conn, stats.HORSE, axis('Post position'), HORSE_ID)
+        assert [r[0] for r in rows] == ['unknown']
 
 
 # --- search -----------------------------------------------------------------
