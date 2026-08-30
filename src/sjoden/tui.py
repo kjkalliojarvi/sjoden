@@ -103,6 +103,29 @@ class ClickableTable(DataTable):
         self.axis = axis
 
     def on_click(self, event: events.Click) -> None:
+        """Open the clicked bucket, or stop a click on a cleared panel.
+
+        `prevent_default` rather than a plain return, and it is load-bearing.
+        Textual dispatches an event to the handler in *every* class of the MRO,
+        so `DataTable._on_click` runs after this one and cannot be overridden
+        away — defining `_on_click` here would not replace it, and would also
+        kill this method, since each class contributes `_on_click` *or*
+        `on_click` and the underscore wins.
+
+        That matters because `DataTable._on_click` treats any click at row -1 as
+        a header click and reads `ordered_columns[meta['column']]` without
+        checking there are any columns, so a click anywhere in a panel that
+        `clear(columns=True)` emptied raises IndexError out of the framework.
+        Its own out-of-bounds guard does not catch it: that guard is skipped
+        whenever `cursor_type` is 'row', which is what every table here uses.
+
+        `prevent_default` sets the flag the dispatch loop breaks on, so this
+        runs first and the framework's handler never does. An empty panel has
+        nothing to select in any case.
+        """
+        if not self.columns:
+            event.prevent_default()
+            return
         self._open(event.style.meta.get('row', -1))
 
     def action_open_bucket(self) -> None:
