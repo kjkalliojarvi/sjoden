@@ -7,6 +7,7 @@ from .archive_db import DEFAULT_DB
 from .crawler import backfill, status
 from .fetcher import DEFAULT_DELAY
 from .parse import parse
+from .tui import stats_tui
 from .validate import validate
 
 DEFAULT_RAW = 'data/raw'
@@ -27,8 +28,8 @@ def require_db(args):
     reports zero of everything as though the work had never been done.
 
     The crawl and the parse do have to create the database the first time, so
-    they take --create-db and say so. `status` and `validate` only ever read
-    one, so for them there is nothing to opt into.
+    they take --create-db and say so. `status`, `validate` and `stats` only ever
+    read one, so for them there is nothing to opt into.
     """
     if os.path.exists(args.db) or getattr(args, 'create_db', False):
         return
@@ -113,6 +114,15 @@ def sjoden():
     p_validate.add_argument('--db', default=DEFAULT_DB,
                             help=f'DuckDB database file (default: {DEFAULT_DB})')
     p_validate.set_defaults(func=validate)
+
+    p_stats = subparser.add_parser(
+        'stats',
+        help="Browse a horse's, driver's or trainer's starts in a terminal UI")
+    p_stats.add_argument('name', nargs='?', default=None,
+                         help='Prefill the search box with this name')
+    p_stats.add_argument('--db', default=DEFAULT_DB,
+                         help=f'DuckDB database file (default: {DEFAULT_DB})')
+    p_stats.set_defaults(func=stats_tui)
 
     args, _ = parser.parse_known_args()
     if not args.command:
