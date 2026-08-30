@@ -20,6 +20,7 @@ uv run sjoden backfill --from D --to D --games   # ...also the pools and bet dis
 uv run sjoden parse                              # raw archive -> atg.* tables
 uv run sjoden status                             # crawl manifest progress
 uv run sjoden validate                           # structural checks over the archive
+uv run sjoden stats [name]                       # browse the archive in a terminal UI
 uv run pytest tests                              # run tests (make run-tests)
 ```
 
@@ -59,6 +60,12 @@ survive even if the endpoint is closed to scraping.
   change to any `*_record()` builder or scalar parser requires).
 - `validate.py` — read-only structural checks. Most report counts rather than a verdict,
   because several of the questions cannot be answered by the check itself.
+- `stats.py` / `tui.py` — the reader behind `sjoden stats`, split the way the rest of the
+  pipeline is: `stats.py` is all SQL and imports no UI, so its queries are testable on a
+  temporary archive and runnable on their own (`python -m sjoden.stats 'järvsö' [driver]`);
+  `tui.py` is all widgets and holds no SQL. A `Subject` is whose starts are counted — horse,
+  trainer or driver, cycled with `t` — and an `Axis` is one way of grouping them, with its
+  bucket label written **once** so the count a bucket shows is the count it opens.
 
 ### The `early` status — why a premature crawl is not destructive here
 
@@ -151,7 +158,7 @@ later race's trainer.
 
 ## Not built
 
-Feature engineering and modelling; a stats TUI; forward-only pre-race and odds-drift
+Feature engineering and modelling; forward-only pre-race and odds-drift
 snapshots (worth adding once the archive exists — no backfill can recover them); any
 Svensk Travsport second source, which the strategy document argues against building
 speculatively.

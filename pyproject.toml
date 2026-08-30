@@ -21,6 +21,7 @@ dependencies = [
     "duckdb>=1.5.5",
     "pydantic>=2.13.4",
     "requests>=2.34.2",
+    "textual>=8.2.8",
 ]
 
 [project.scripts]
