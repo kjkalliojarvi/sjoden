@@ -23,6 +23,14 @@ rates and earnings-per-start are derived from `atg.start` with an explicit
 `< race.meetDate` predicate instead. The one embedded aggregate kept is
 `horse.money`, as `start.careerWinnings`, and `sjoden validate` checks it is
 the pre-race figure rather than assuming it.
+
+**Two columns are derived rather than parsed** — `horse.birthYear` and
+`start.startInterval`. Both are written NULL by the parser and filled by a
+whole-table pass at the end of `parse_all()`, so their value is a function of
+the archive rather than of what one run happened to load. `startInterval` is the
+days since the horse's previous start; it looks only backwards, which is what
+makes materialising it safe under the rule above. **NULL is not zero** there —
+see `RECOMPUTE_START_INTERVAL` for the two things it means.
 """
 import os
 from contextlib import contextmanager
@@ -127,11 +135,12 @@ CREATE_START_TABLE = """
         prizeMoney BIGINT,       -- öre, this race
         finalOdds DOUBLE,
         careerWinnings BIGINT,   -- öre; horse.money AS OF this race
+        startInterval BIGINT,    -- days since this horse's previous start; derived
         PRIMARY KEY (raceId, startNumber));
 """
 INSERT_START = ('INSERT OR REPLACE INTO atg.start '
                 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '
-                '?, ?, ?, ?, ?);')
+                '?, ?, ?, ?, ?, ?);')
 START_KEY = (0, 1)  # raceId, startNumber
 
 # `horseId` is the stable ATG id and it is on every start, so there is no
@@ -221,6 +230,16 @@ CREATE_INDEXES = (
     'CREATE INDEX IF NOT EXISTS idx_atg_race_date ON atg.race(meetDate);',
 )
 
+# `CREATE TABLE IF NOT EXISTS` is a no-op on an archive that already exists, so a
+# column added to the DDL above never reaches one — and the next parse fails on
+# the arity of the positional INSERT. These run on every `create()` and carry an
+# older archive forward without a reparse of the raw zone. Add each new column
+# both here and at the *end* of its CREATE TABLE: `ADD COLUMN` appends, so
+# matching that order is what keeps a migrated archive and a fresh one identical.
+ADD_COLUMNS = (
+    'ALTER TABLE atg.start ADD COLUMN IF NOT EXISTS startInterval BIGINT;',
+)
+
 # ATG gives `age`, not birth year, and age is relative to the racing year — so
 # the value is stable across a horse's starts within a year but can disagree
 # across years. A mode-vote over every start settles it deterministically.
@@ -240,6 +259,42 @@ RECOMPUTE_HORSE_BIRTHYEAR = """
               GROUP BY s.horseId, year(r.meetDate) - s.horseAge)
           WHERE rn = 1) v
     WHERE h.horseId = v.horseId;
+"""
+
+# Days since the horse's previous start, filled in after loading rather than per
+# record — a start's predecessor is a different row, often from a different
+# payload and a different crawl. Computing it over the whole accumulated table
+# makes it a function of the table rather than of what this run happened to
+# parse, and re-derives it correctly as earlier dates are crawled in.
+#
+# **A scratched horse did not start**, so a scratching is not a point on the
+# timeline: the gap is measured across it, from the last race the horse actually
+# ran, and the scratched row keeps NULL. `scratched` here is the post-race
+# `race.result.scratchings` list, not an entry-time flag.
+#
+# **A horse's earliest start in the archive gets NULL, not a sentinel.** NULL
+# means 'no earlier start known' — which is also what it means for a horse whose
+# real previous start fell before the crawl window, or abroad. Never read it as
+# a zero gap, and separate it from the scratched NULLs with `NOT scratched`.
+#
+# Zero is a real value: heats and finals put a horse in two races on one date,
+# which is why the window orders by `raceNumber` within the day.
+#
+# The reset is not redundant. `UPDATE ... FROM` only touches the rows its
+# subquery joins to, so a start that stops qualifying — a refetched card now
+# lists it as scratched — would otherwise keep the gap it had forever.
+RESET_START_INTERVAL = 'UPDATE atg.start SET startInterval = NULL;'
+
+RECOMPUTE_START_INTERVAL = """
+    UPDATE atg.start AS s SET startInterval = g.gap
+    FROM (SELECT s2.raceId, s2.startNumber,
+                 date_diff('day',
+                           lag(r.meetDate) OVER (PARTITION BY s2.horseId
+                                                 ORDER BY r.meetDate, r.raceNumber),
+                           r.meetDate) AS gap
+          FROM atg.start s2 JOIN atg.race r USING (raceId)
+          WHERE NOT coalesce(s2.scratched, FALSE)) AS g
+    WHERE g.raceId = s.raceId AND g.startNumber = s.startNumber;
 """
 
 
@@ -294,7 +349,7 @@ def create(conn):
     conn.execute(CREATE_SCHEMA)
     for statement in (CREATE_RACE_TABLE, CREATE_START_TABLE, CREATE_HORSE_TABLE,
                       CREATE_PERSON_TABLE, CREATE_BETDISTRIBUTION_TABLE,
-                      CREATE_POOL_TABLE, *CREATE_INDEXES):
+                      CREATE_POOL_TABLE, *CREATE_INDEXES, *ADD_COLUMNS):
         conn.execute(statement)
 
 
@@ -324,3 +379,12 @@ class ArchiveDb:
 
     def recompute_birth_years(self):
         self.conn.execute(RECOMPUTE_HORSE_BIRTHYEAR)
+
+    def recompute_start_intervals(self):
+        """Days since each horse's previous start, over the whole table.
+
+        Cleared first: `UPDATE ... FROM` reaches only the rows its subquery
+        joins to, so a start that stops qualifying would keep a stale gap.
+        """
+        self.conn.execute(RESET_START_INTERVAL)
+        self.conn.execute(RECOMPUTE_START_INTERVAL)

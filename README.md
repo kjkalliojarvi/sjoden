@@ -108,6 +108,12 @@ All verified live on 2026-08-26 and again over 931 parsed starts. Several contra
 - **`horse.money` is the pre-race figure**, which is what makes it safe to keep as
   `start.careerWinnings`. Verified: on 27 of 27 consecutive-start pairs, the next start's
   figure exceeds this one's by exactly what the horse won here.
+- **`startInterval` is days since the horse's previous start**, derived after loading
+  rather than read from the API. A scratched horse did not start, so a scratching is not
+  a point on the timeline: the gap is measured across it and the scratched row keeps
+  NULL. **NULL is not a zero gap** — it means no earlier start is known, which is also
+  the case for a horse whose real previous start fell before the crawl window or abroad.
+  Zero *is* a real value: a heat and its final put a horse in two races on one date.
 - **Drivers and trainers share one licence namespace.** 144 ids appeared in both roles
   with no id ever carrying two different names, which is why `atg.person` is one table.
   `parse` reports a clash if one ever appears; that is what would force a split.
@@ -133,6 +139,10 @@ on this archive. Rolling form, win rates and earnings-per-start are derived from
 
 The one embedded aggregate kept is `horse.money`, as `start.careerWinnings`, and
 `validate` re-checks that it is the pre-race figure rather than assuming it.
+
+`start.startInterval` is the one derived feature materialised on a start, and it is safe
+precisely because it is a backward-only window over `atg.start` — it can see the date of
+an earlier start and nothing else, so no result later than this race can reach it.
 
 `trainerId` on a start is the trainer **as of that race**, so trainer-change features are
 a self-join over `atg.start` ordered by date. Coverage begins where the crawl begins;

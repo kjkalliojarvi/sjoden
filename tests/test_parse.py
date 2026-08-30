@@ -1,4 +1,6 @@
 """The parsing rules that the endpoint reference gets wrong or leaves implicit."""
+import copy
+
 import pytest
 
 from conftest import AUTO_RACE, GAME, VOLTE_RACE, load, seed
@@ -158,6 +160,96 @@ def test_birth_year_is_derived_from_age_and_meet_date(paths):
             """SELECT h.birthYear, s.horseAge FROM atg.horse h
                JOIN atg.start s USING (horseId) WHERE s.raceId = '2026-08-22_23_1'""").fetchall()
     assert rows and all(year == 2026 - age for year, age in rows)
+
+
+# --- startInterval ----------------------------------------------------------
+
+HORSE = 797284      # the first start of the auto-start fixture
+
+
+def _card(date: str, number: int, scratched: tuple[int, ...] = ()) -> dict:
+    """The auto-start fixture re-dated, so one horse gets a career to measure."""
+    payload = copy.deepcopy(load(AUTO_RACE))
+    payload['id'] = f'{date}_23_{number}'
+    payload['date'] = date
+    payload['number'] = number
+    payload['result']['scratchings'] = list(scratched)
+    return payload
+
+
+def _intervals(db_path: str) -> dict[str, int | None]:
+    """Every start of HORSE, its meet date against its interval."""
+    with db_read(db_path) as conn:
+        return dict(conn.execute(
+            """SELECT CAST(r.meetDate AS TEXT), s.startInterval
+               FROM atg.start s JOIN atg.race r USING (raceId)
+               WHERE s.horseId = ? ORDER BY r.meetDate, r.raceNumber""",
+            [HORSE]).fetchall())
+
+
+def test_start_interval_is_the_days_since_the_previous_start(paths):
+    raw_root, db_path = paths
+    seed(raw_root, db_path,
+         races=[_card('2026-08-01', 1), _card('2026-08-15', 1), _card('2026-08-22', 1)])
+    parse_all(db_path, raw_root)
+    assert _intervals(db_path) == {'2026-08-01': None, '2026-08-15': 14,
+                                   '2026-08-22': 7}
+
+
+def test_the_earliest_start_in_the_archive_is_null_not_a_sentinel(paths):
+    """NULL, not days-since-1970.
+
+    The Finnish archive's older column stamps an epoch sentinel there, which has
+    to be filtered by a magnitude threshold and reads as a 20 000-day layoff to
+    anything that forgets. A nullable column has somewhere to put 'unknowable'.
+    """
+    raw_root, db_path = paths
+    seed(raw_root, db_path, races=[_card('2026-08-01', 1)])
+    parse_all(db_path, raw_root)
+    assert _intervals(db_path) == {'2026-08-01': None}
+
+
+def test_a_scratching_is_not_a_point_on_the_timeline(paths):
+    """The horse did not start, so the next gap is measured across it."""
+    raw_root, db_path = paths
+    seed(raw_root, db_path,
+         races=[_card('2026-08-01', 1),
+                _card('2026-08-08', 1, scratched=(1,)),   # HORSE is start number 1
+                _card('2026-08-15', 1)])
+    parse_all(db_path, raw_root)
+    assert _intervals(db_path) == {'2026-08-01': None, '2026-08-08': None,
+                                   '2026-08-15': 14}
+
+
+def test_two_starts_on_one_date_give_a_real_zero_gap(paths):
+    """A heat and its final. Zero is a value here, not a missing one."""
+    raw_root, db_path = paths
+    seed(raw_root, db_path, races=[_card('2026-08-01', 1), _card('2026-08-01', 5)])
+    parse_all(db_path, raw_root)
+    with db_read(db_path) as conn:
+        gaps = [row[0] for row in conn.execute(
+            """SELECT s.startInterval FROM atg.start s JOIN atg.race r USING (raceId)
+               WHERE s.horseId = ? ORDER BY r.raceNumber""", [HORSE]).fetchall()]
+    assert gaps == [None, 0]
+
+
+def test_recompute_clears_a_gap_that_stops_qualifying(paths):
+    """`UPDATE ... FROM` only reaches the rows it joins to, hence the reset.
+
+    Re-parsing the middle card with the horse scratched must move the last
+    start's gap from 7 to 14 *and* blank the scratched one — not leave either
+    holding what the first run wrote.
+    """
+    raw_root, db_path = paths
+    seed(raw_root, db_path,
+         races=[_card('2026-08-01', 1), _card('2026-08-08', 1), _card('2026-08-15', 1)])
+    parse_all(db_path, raw_root)
+    assert _intervals(db_path) == {'2026-08-01': None, '2026-08-08': 7,
+                                   '2026-08-15': 7}
+    seed(raw_root, db_path, races=[_card('2026-08-08', 1, scratched=(1,))])
+    parse_all(db_path, raw_root, full=True)
+    assert _intervals(db_path) == {'2026-08-01': None, '2026-08-08': None,
+                                   '2026-08-15': 14}
 
 
 def test_connections_land_in_one_person_table(paths):

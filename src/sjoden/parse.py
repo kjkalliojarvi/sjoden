@@ -129,7 +129,8 @@ def start_record(race: Race, start: Start, scratchings: set[int]) -> tuple:
             start.number in scratchings,
             result.prizeMoney if result else None,
             result.finalOdds if result else None,
-            horse.money)
+            horse.money,
+            None)                      # startInterval: recomputed after loading
 
 
 def horse_record(horse: Horse) -> tuple:
@@ -362,8 +363,10 @@ def _parse_games(manifest: Manifest, raw_root: str, db: ArchiveDb,
 def parse_all(db_name: str, raw_root: str, full: bool = False) -> dict:
     """Load the raw zone into the atg tables. Idempotent.
 
-    The recompute pass always runs over the whole table. It costs a fraction of
-    a second, and being whole-table is exactly what makes it deterministic.
+    The recompute passes always run over the whole table, even when nothing new
+    was parsed. They cost a fraction of a second, and being whole-table is
+    exactly what makes them deterministic: a start's interval depends on a row
+    that a different run may have loaded.
     """
     unparsed = not full
     with db_ops(db_name) as conn:
@@ -374,6 +377,7 @@ def parse_all(db_name: str, raw_root: str, full: bool = False) -> dict:
         races, starts = _parse_races(manifest, raw_root, db, unparsed)
         pools, distributions = _parse_games(manifest, raw_root, db, unparsed)
         db.recompute_birth_years()
+        db.recompute_start_intervals()
     return {'races': races, 'starts': starts,
             'pools': pools, 'bet distributions': distributions}
 

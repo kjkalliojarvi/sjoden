@@ -153,6 +153,34 @@ CHECKS = (
                     count(*) FILTER (WHERE nextWinnings < careerWinnings)   AS went_backwards
              FROM ordered
              WHERE nextWinnings IS NOT NULL AND prizeMoney IS NOT NULL"""),
+
+    Check('startInterval accounts for every NULL',
+          'A NULL interval is exactly one of two things: a scratched start, which is '
+          'not on the timeline at all, or a horse\'s earliest start *in the archive* '
+          '— which is not the same as its first ever, since the crawl begins at '
+          '`--from` and never sees a start abroad. `unexplained` is the assertion: '
+          'anything above zero is a bug in the recompute, not a fact about racing. '
+          '`zero_day` is legitimate — a heat and its final put a horse in two races '
+          'on one date.',
+          """WITH ran AS (
+                 SELECT s.raceId, s.startNumber,
+                        row_number() OVER (PARTITION BY s.horseId
+                                           ORDER BY r.meetDate, r.raceNumber) AS rn
+                 FROM atg.start s JOIN atg.race r USING (raceId)
+                 WHERE NOT s.scratched)
+             SELECT count(*)                                             AS starts,
+                    count(s.startInterval)                               AS filled,
+                    count(*) FILTER (WHERE s.startInterval IS NULL
+                                       AND s.scratched)                  AS null_scratched,
+                    count(*) FILTER (WHERE s.startInterval IS NULL
+                                       AND ran.rn = 1)                   AS null_first,
+                    count(*) FILTER (WHERE s.startInterval IS NULL
+                                       AND NOT s.scratched
+                                       AND coalesce(ran.rn, 1) <> 1)     AS unexplained,
+                    count(*) FILTER (WHERE s.startInterval = 0)          AS zero_day,
+                    max(s.startInterval)                                 AS max_days
+             FROM atg.start s
+             LEFT JOIN ran USING (raceId, startNumber)"""),
 )
 
 
