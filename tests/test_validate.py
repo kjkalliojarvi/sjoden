@@ -227,3 +227,26 @@ def test_career_winnings_recognises_the_pre_race_pattern(paths):
                         WHERE raceId = '2026-08-22_23_1' AND startNumber = 4""")
     row = one(db_path, 'careerWinnings is the pre-race figure')
     assert row['pairs'] == 1 and row['consistent'] == 1 and row['went_backwards'] == 0
+
+
+def test_start_interval_nulls_are_all_accounted_for(paths):
+    db_path = archive(paths)
+    row = one(db_path, 'startInterval accounts for every NULL')
+    # The two fixture cards share no horse, so every start is a horse's first —
+    # except the one scratching, which is on neither timeline nor tally.
+    assert row['unexplained'] == 0
+    assert row['filled'] == 0
+    assert row['null_scratched'] == 1
+    assert row['null_first'] == row['starts'] - 1
+
+
+def test_start_interval_reports_a_gap_the_recompute_missed(paths):
+    db_path = archive(paths)
+    with db_ops(db_path) as conn:
+        # One horse with two starts, the later one left NULL: neither scratched
+        # nor its first, which is the state the check exists to name.
+        conn.execute("""UPDATE atg.start SET horseId = 999
+                        WHERE raceId = '2026-08-08_33_1' AND startNumber = 2""")
+        conn.execute("""UPDATE atg.start SET horseId = 999
+                        WHERE raceId = '2026-08-22_23_1' AND startNumber = 4""")
+    assert one(db_path, 'startInterval accounts for every NULL')['unexplained'] == 1
