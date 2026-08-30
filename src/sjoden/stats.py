@@ -416,10 +416,18 @@ class Axis(NamedTuple):
 # Capped, and the cap is **named in the title** because these are the axes that
 # do not sum back to Overall. The `, name` tiebreak is what makes the cut
 # deterministic rather than whichever equal row DuckDB happened to return.
-DRIVER_AXIS = Axis('Driver (top 3 by starts)', 'driver', _DRIVER_NAME,
-                   'starts DESC, driver', limit=3)
-TRAINER_AXIS = Axis('Trainer (top 3 by starts)', 'trainer', _TRAINER_NAME,
-                    'starts DESC, trainer', limit=3)
+# Five deep for every subject: a horse/driver or trainer/driver pairing is a
+# working relationship, and the obvious first three are rarely the whole story.
+PARTNER_LIMIT = 5
+
+
+def _partner(role: str, name: str) -> Axis:
+    return Axis(f'{role.capitalize()} (top {PARTNER_LIMIT} by starts)', role, name,
+                f'starts DESC, {role}', limit=PARTNER_LIMIT)
+
+
+DRIVER_AXIS = _partner('driver', _DRIVER_NAME)
+TRAINER_AXIS = _partner('trainer', _TRAINER_NAME)
 
 # The axes every subject answers, in the order the UI stacks them. One entry per
 # panel: an extra breakdown is one line here and no widget code.
@@ -434,8 +442,14 @@ COMMON = (
          _POST_ORDER),
     Axis('Days since previous start', 'days since previous', _LAYOFF,
          _LAYOFF_ORDER, _LAYOFF_ORDER),
-    Axis('Track (top 5 by starts)', 'track', 'r.trackName', 'starts DESC, track',
-         limit=5),
+    # By wins rather than starts: a track a horse keeps winning at is the
+    # interesting one, and the track it merely turns up at most is usually just
+    # the nearest. Ordering on wins first and starts second gives the fill rule
+    # for free — every track with a win sorts ahead of every track without, so
+    # a subject with fewer than five winning tracks has the rest of its five
+    # taken by the winless tracks it started at most.
+    Axis('Track (top 5 by wins)', 'track', 'r.trackName',
+         '"1st" DESC, starts DESC, track', limit=5),
 )
 
 # Constant across subjects, which is what lets the UI build its panels once and

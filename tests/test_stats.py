@@ -57,6 +57,22 @@ def _monte_card(date: str) -> dict:
     return payload
 
 
+def _at_track(date: str, number: int, track: str) -> dict:
+    """The card re-dated onto a named track, so wins can be spread around."""
+    payload = card(date, number)
+    payload['track'] = dict(payload['track'], name=track)
+    return payload
+
+
+def _beaten_at(date: str, number: int, track: str) -> dict:
+    """The same card with the winner demoted, so a subject can start without
+    winning — the state the track axis's fill rule is about."""
+    payload = _at_track(date, number, track)
+    payload['starts'][3]['result']['finishOrder'] = 5      # driver 479879
+    payload['starts'][2]['result']['finishOrder'] = 1      # someone else wins
+    return payload
+
+
 def _gallop_card(date: str) -> dict:
     """The same card tagged as a flat race — a different sport, not a variant."""
     payload = card(date)
@@ -382,6 +398,50 @@ def test_a_start_with_no_post_is_one_unknown_not_two(paths):
         assert [r[0] for r in rows] == ['unknown']
 
 
+# --- the track axis ---------------------------------------------------------
+
+def test_tracks_are_ranked_by_wins_not_starts(paths):
+    """A track a horse keeps winning at is the interesting one; the track it
+    merely turns up at most is usually just the nearest."""
+    db_path = archive(paths, [_at_track('2026-08-01', 1, 'Solvalla'),
+                              _at_track('2026-08-08', 2, 'Solvalla'),
+                              _at_track('2026-08-15', 3, 'Åby')])
+    with db_read(db_path) as conn:
+        # 479879 wins every card; it starts twice at Solvalla and once at Åby.
+        rows = rows_of(conn, stats.DRIVER, axis('Track'), 479879)
+        assert [(r[0], r[1], r[2]) for r in rows] == [('Solvalla', 2, 2), ('Åby', 1, 1)]
+        # 797284 is disqualified on every card, so it never wins anywhere and
+        # falls back to being ranked by starts.
+        rows = rows_of(conn, stats.HORSE, axis('Track'), HORSE_ID)
+        assert [(r[0], r[1], r[2]) for r in rows] == [('Solvalla', 2, 0), ('Åby', 1, 0)]
+
+
+def test_a_winless_track_fills_a_remaining_slot_by_starts(paths):
+    """The fill rule, and it is why one ORDER BY covers both halves.
+
+    Every track with a win sorts ahead of every track without, so a subject with
+    fewer than five winning tracks has the rest of its five taken by the winless
+    tracks it started at most — rather than the list simply being short.
+    """
+    races = [_at_track('2026-08-01', 1, 'Åby')]                       # 1 start, 1 win
+    races += [_beaten_at(f'2026-08-{8 + n:02d}', n + 2, 'Solvalla')   # 3 starts, no win
+              for n in range(3)]
+    db_path = archive(paths, races)
+    with db_read(db_path) as conn:
+        rows = rows_of(conn, stats.DRIVER, axis('Track'), 479879)
+        assert [(r[0], r[1], r[2]) for r in rows] == [('Åby', 1, 1), ('Solvalla', 3, 0)]
+
+
+def test_the_track_cap_does_not_reach_the_drill_down(paths):
+    """A capped axis still opens exactly the count its bucket shows."""
+    db_path = career(paths)
+    with db_read(db_path) as conn:
+        for bucket, count, *_ in rows_of(conn, stats.HORSE, axis('Track'), HORSE_ID):
+            _, opened = stats.bucket_starts(conn, stats.HORSE, axis('Track'),
+                                            HORSE_ID, bucket)
+            assert len(opened) == count
+
+
 # --- search -----------------------------------------------------------------
 
 def test_a_search_folds_accents(paths, who):
@@ -471,6 +531,14 @@ def test_the_last_axis_asks_about_the_counterpart_role():
     assert stats.breakdowns(stats.DRIVER)[-1] is stats.TRAINER_AXIS
     assert stats.breakdowns(stats.TRAINER)[-1] is stats.DRIVER_AXIS
     assert stats.breakdowns(stats.HORSE)[-1] is stats.DRIVER_AXIS
+
+
+def test_every_counterpart_axis_goes_five_deep():
+    """A pairing is a working relationship, and the obvious first three are
+    rarely the whole story."""
+    assert all(stats.breakdowns(s)[-1].limit == 5 for s in stats.SUBJECTS)
+    assert all(str(stats.breakdowns(s)[-1].limit) in stats.breakdowns(s)[-1].title
+               for s in stats.SUBJECTS), 'a cap has to be named in its title'
 
 
 def test_a_person_start_list_names_the_horse_first(paths):
