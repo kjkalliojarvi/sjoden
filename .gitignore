@@ -12,3 +12,5 @@ wheels/
 # The raw zone and the DuckDB archive. Anchored to the repository root: a bare
 # `data/` also matches tests/data/, which holds the fixtures the suite needs.
 /data/
+
+*.sh
